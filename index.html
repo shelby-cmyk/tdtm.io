@@ -53,8 +53,8 @@
   .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 15px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
   .nav-logo img { height: 25px; width: auto; display: block; }
   .nav-links { display: flex; align-items: center; gap: 30px; }
-  .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--muted); font-weight: 500; transition: color .15s; }
-  .nav-links a:hover { color: var(--accent); }
+  .nav-links a { font-size: 14px; color: var(--muted); font-weight: 500; transition: color .15s; }
+  .nav-links a:hover { color: var(--fg); }
   .nav-cta { display: flex; align-items: center; gap: 16px; }
 
   /* ── BUTTONS ── */
@@ -65,7 +65,7 @@
   .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(200,255,0,.28); }
   .btn-ghost { background: transparent; color: var(--fg); border: 1px solid var(--border-2); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .btn-text { font-family: var(--mono); color: var(--muted); font-weight: 500; font-size: 13px; }
+  .btn-text { color: var(--muted); font-weight: 600; font-size: 14px; }
   .btn-text:hover { color: var(--fg); }
   .btn-dark { background: var(--ink); color: #fff; border: 1px solid var(--ink); }
   .btn-dark:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(0,0,0,.4); }
@@ -94,13 +94,12 @@
   .hero-mini { display: flex; align-items: center; gap: 16px; margin-top: 22px; font-family: var(--mono); font-size: 12.5px; color: var(--faint); flex-wrap: wrap; }
   .hero-mini .sep { color: var(--border-2); }
 
-  /* ── MARQUEE ── */
-  .marquee { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; margin-top: 56px; overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-  .mtrack { display: inline-flex; gap: 40px; animation: marquee 38s linear infinite; }
-  .marquee:hover .mtrack { animation-play-state: paused; }
-  .mtrack span { font-family: var(--mono); font-size: 13.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 12px; }
-  .mtrack span::before { content: '>'; color: var(--accent); }
-  @keyframes marquee { to { transform: translateX(-50%); } }
+  /* ── EXAMPLES ── */
+  .examples { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 26px 0; margin-top: 56px; }
+  .examples .lbl { font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: .06em; text-transform: uppercase; }
+  .exrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .ex { font-family: var(--mono); font-size: 13px; color: var(--muted); border: 1px solid var(--border-2); border-radius: 8px; padding: 8px 13px; display: inline-flex; align-items: center; gap: 9px; }
+  .ex::before { content: '>'; color: var(--accent); }
 
   /* ── SECTIONS ── */
   section { padding: 80px 0; }
@@ -116,9 +115,6 @@
   .col { border: 1px solid var(--border-2); border-radius: 18px; padding: 34px 32px; background: var(--surface); }
   .col.old { background: #0f0f13; }
   .col.new { position: relative; background: linear-gradient(180deg, rgba(200,255,0,.04), transparent 40%); border-color: rgba(200,255,0,.4); }
-  .col.new::before, .col.new::after { content: ''; position: absolute; width: 20px; height: 20px; border: 2px solid var(--accent); }
-  .col.new::before { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
-  .col.new::after { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
   .col h3 { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 24px; }
   .col.new h3 { color: var(--accent); }
   .col ul { list-style: none; display: flex; flex-direction: column; gap: 17px; }
@@ -129,23 +125,14 @@
   .ic.x { background: rgba(224,101,92,.14); }
   .ic.c { background: var(--accent); }
 
-  /* ── BENTO ── */
-  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
-  .cell { border: 1px solid var(--border-2); border-radius: 18px; background: var(--surface); padding: 30px 28px; transition: border-color .18s, transform .18s; }
-  .cell:hover { border-color: rgba(200,255,0,.35); transform: translateY(-2px); }
-  .cell.s2 { grid-column: span 2; } .cell.s3 { grid-column: span 3; } .cell.s4 { grid-column: span 4; } .cell.s6 { grid-column: span 6; }
-  .cell.hero-cell { background: linear-gradient(150deg, rgba(200,255,0,.08), var(--surface) 55%); border-color: rgba(200,255,0,.3); }
+  /* ── BENEFITS (uniform grid) ── */
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .cell { border: 1px solid var(--border-2); border-radius: 18px; background: var(--surface); padding: 28px 26px; transition: border-color .18s, transform .18s; }
+  .cell:hover { border-color: rgba(200,255,0,.32); transform: translateY(-2px); }
   .cell .tag { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; }
-  .cell h3 { font-weight: 800; letter-spacing: -.015em; margin-top: 10px; }
-  .cell.hero-cell h3 { font-size: 26px; line-height: 1.1; }
-  .cell:not(.hero-cell) h3 { font-size: 18px; }
-  .cell p { color: var(--muted); font-size: 15px; margin-top: 10px; line-height: 1.6; }
-  .cell.s6 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
-  .cell.s6 .lhs { max-width: 380px; }
-  .rail { display: flex; gap: 10px; flex-wrap: wrap; }
-  .rail .r { font-family: var(--mono); font-size: 12.5px; color: var(--fg); border: 1px solid var(--border-2); border-radius: 8px; padding: 8px 13px; }
-  .rail .r b { color: var(--accent); font-weight: 500; }
-  @media (max-width: 860px) { .bento { grid-template-columns: 1fr; } .cell.s2,.cell.s3,.cell.s4,.cell.s6 { grid-column: auto; } }
+  .cell h3 { font-size: 19px; font-weight: 800; letter-spacing: -.015em; margin-top: 10px; }
+  .cell p { color: var(--muted); font-size: 15px; margin-top: 9px; line-height: 1.6; }
+  @media (max-width: 860px) { .g3 { grid-template-columns: 1fr; } }
 
   /* ── STEPS (editorial rail) ── */
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); }
@@ -169,6 +156,9 @@
   .band .bmark { position: absolute; right: -40px; bottom: -60px; width: 320px; opacity: .12; }
   .band h2 { font-size: clamp(32px, 5vw, 58px); font-weight: 800; letter-spacing: -.03em; color: var(--ink); line-height: .98; max-width: 16ch; }
   .band p { color: #33420b; margin: 18px 0 30px; max-width: 480px; font-size: 17px; font-weight: 500; }
+  .band .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .band .btn-outline-dark { background: transparent; color: var(--ink); border: 1px solid rgba(12,12,14,.35); }
+  .band .btn-outline-dark:hover { border-color: var(--ink); transform: translateY(-1px); }
   .band .note { font-family: var(--mono); color: #3f4d10; font-size: 12.5px; margin-top: 16px; }
 
   /* ── FOOTER ── */
@@ -197,12 +187,12 @@
   <div class="nav-inner">
     <a href="/" class="nav-logo"><img src="brand/logo.svg" alt="TDTM — Talk Data To Me"></a>
     <nav class="nav-links">
-      <a href="#problem">// problem</a>
-      <a href="#why">// why</a>
-      <a href="#how">// how</a>
+      <a href="#problem">The problem</a>
+      <a href="#why">Why TDTM</a>
+      <a href="#how">How it works</a>
     </nav>
     <div class="nav-cta">
-      <a href="https://talkdatatome.online" class="btn-text">sign in</a>
+      <a href="https://talkdatatome.online" class="btn-text">Sign in</a>
       <a href="https://talkdatatome.online" class="btn btn-primary btn-sm">Get started</a>
     </div>
   </div>
@@ -226,7 +216,7 @@
         <p class="sub">Stop renting stale lists, learning SQL, or waiting on a sales rep for a quote. Describe who you want to reach — and get a fresh, deliverable audience in minutes. <strong>Start free. No SQL. No sales call.</strong></p>
         <div class="askbox">
           <div class="ask"><span class="caret">&gt;</span> homeowners in Dallas · 55+ · $400k+ homes · mobile only<span class="cursor"></span></div>
-          <div class="ret">→ <b>34,812 deliverable records</b> · DNC-scrubbed · ready to ship</div>
+          <div class="ret">→ <b>≈ 34,800 deliverable records</b> · DNC-scrubbed · ready to ship</div>
         </div>
         <div class="hero-cta">
           <a href="https://talkdatatome.online" class="btn btn-primary btn-lg">Get started free</a>
@@ -236,23 +226,17 @@
       </div>
     </div>
 
-    <!-- marquee -->
-    <div class="marquee">
-      <div class="mtrack">
-        <span>solar homeowners in TX, owner-occupied</span>
-        <span>Medicare-eligible seniors 65+ in FL</span>
-        <span>$400k+ homes in metro Atlanta</span>
-        <span>HVAC intent in 49301 &amp; 49506</span>
-        <span>roofing leads after last month's storms</span>
-        <span>ACA-eligible households, mobile only</span>
-        <span>people who look like my best converters</span>
-        <span>solar homeowners in TX, owner-occupied</span>
-        <span>Medicare-eligible seniors 65+ in FL</span>
-        <span>$400k+ homes in metro Atlanta</span>
-        <span>HVAC intent in 49301 &amp; 49506</span>
-        <span>roofing leads after last month's storms</span>
-        <span>ACA-eligible households, mobile only</span>
-        <span>people who look like my best converters</span>
+    <!-- examples (illustrative) -->
+    <div class="wrap">
+      <div class="examples">
+        <span class="lbl">Ask it like you'd ask a person — for example</span>
+        <div class="exrow">
+          <span class="ex">solar homeowners in TX, owner-occupied</span>
+          <span class="ex">Medicare-eligible seniors 65+ in FL</span>
+          <span class="ex">$400k+ homes in metro Atlanta</span>
+          <span class="ex">HVAC intent in 49301 &amp; 49506</span>
+          <span class="ex">people who look like my best converters</span>
+        </div>
       </div>
     </div>
   </section>
@@ -295,44 +279,36 @@
       <span class="lbl">// why TDTM</span>
       <h2>Fewer wasted dollars. More of the right people.</h2>
     </div>
-    <div class="bento">
-      <div class="cell s4 hero-cell">
+    <div class="g3">
+      <div class="cell">
         <span class="tag">reach</span>
-        <h3>Spend on buyers, not tire-kickers.</h3>
+        <h3>Spend on buyers, not tire-kickers</h3>
         <p>Upload your best customers and TDTM finds more people like them across a national identity graph — so every dollar chases the people most likely to convert.</p>
       </div>
-      <div class="cell s2">
+      <div class="cell">
         <span class="tag">speed</span>
         <h3>Live in minutes</h3>
-        <p>No SQL, no onboarding, no waiting on exports. Ask, refine, delivered.</p>
+        <p>No SQL, no onboarding, no waiting on exports. Ask, refine, and your file's on its way.</p>
       </div>
-      <div class="cell s2">
+      <div class="cell">
         <span class="tag">pricing</span>
         <h3>Pay for what you use</h3>
-        <p>No lifetime "database access." Clear per-record pricing, free to start.</p>
+        <p>No lifetime "database access." Clear per-record pricing, and a free tier to prove it first.</p>
       </div>
-      <div class="cell s2">
+      <div class="cell">
         <span class="tag">trust</span>
         <h3>Compliant by default</h3>
-        <p>Cell DNC scrubbed at pull time and suppression built right in.</p>
+        <p>Cell DNC scrubbed at pull time, suppression built in, and privacy-first identity resolution.</p>
       </div>
-      <div class="cell s2">
+      <div class="cell">
         <span class="tag">pixel</span>
-        <h3>Traffic → contacts</h3>
-        <p>A one-line pixel turns anonymous visitors into contactable people.</p>
+        <h3>Turn traffic into contacts</h3>
+        <p>A one-line pixel resolves anonymous website visitors into real, contactable people.</p>
       </div>
-      <div class="cell s6">
-        <div class="lhs">
-          <span class="tag">activate</span>
-          <h3 style="font-size:22px;margin-top:10px;">Works where you already run.</h3>
-          <p>Build it once in chat, then deliver it wherever your campaigns live.</p>
-        </div>
-        <div class="rail">
-          <span class="r"><b>→</b> Data feeds</span>
-          <span class="r"><b>→</b> Website pixel</span>
-          <span class="r"><b>→</b> Ad platforms</span>
-          <span class="r"><b>→</b> Identity API</span>
-        </div>
+      <div class="cell">
+        <span class="tag">activate</span>
+        <h3>Works where you run</h3>
+        <p>Deliver to a data feed, your website pixel, your ad platforms, or the real-time API. Your stack, your call.</p>
       </div>
     </div>
   </section>
@@ -366,9 +342,9 @@
   <!-- ── TRUST ── -->
   <section class="wrap" style="padding-top:0;">
     <div class="trust3">
-      <div class="tstat"><div class="big">Millions / week</div><div class="lbl">records delivered</div></div>
-      <div class="tstat"><div class="big">Nearly every household</div><div class="lbl">U.S. identity coverage</div></div>
-      <div class="tstat"><div class="big">Backed by TOF</div><div class="lbl">the data company behind it</div></div>
+      <div class="tstat"><div class="big">2M+ records</div><div class="lbl">// delivered every week</div></div>
+      <div class="tstat"><div class="big">All 50 states</div><div class="lbl">// national consumer identity data</div></div>
+      <div class="tstat"><div class="big">Built by TOF</div><div class="lbl">// a data &amp; identity company</div></div>
     </div>
   </section>
 
@@ -384,7 +360,10 @@
       </svg>
       <h2>Your next customers are one sentence away.</h2>
       <p>Describe who you want to reach and see your first audience free — in under a minute.</p>
-      <a href="https://talkdatatome.online" class="btn btn-dark btn-lg">Get started free</a>
+      <div class="cta-row">
+        <a href="https://talkdatatome.online" class="btn btn-dark btn-lg">Get started free</a>
+        <a href="mailto:hello@tof.io?subject=TDTM%20%E2%80%94%20a%20few%20questions" class="btn btn-outline-dark btn-lg">Not ready? Talk to us</a>
+      </div>
       <p class="note">start free · no SQL · no sales call</p>
     </div>
   </section>
