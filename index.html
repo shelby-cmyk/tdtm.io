@@ -214,8 +214,8 @@
         <h1>Your next customers are already out there. <span class="mark">Just ask.</span></h1>
         <p class="sub">Stop renting stale lists, learning SQL, or waiting on a sales rep for a quote. Describe who you want to reach — and get a fresh, deliverable audience in minutes. <strong>Start free. No SQL. No sales call.</strong></p>
         <div class="askbox">
-          <div class="ask"><span class="caret">&gt;</span> homeowners in Dallas · 55+ · $400k+ homes · mobile only<span class="cursor"></span></div>
-          <div class="ret">→ <b>≈ 34,800 deliverable records</b> · DNC-scrubbed · ready to ship</div>
+          <div class="ask"><span class="caret">&gt;</span> <span id="askText"></span><span class="cursor"></span></div>
+          <div class="ret" id="askRet"></div>
         </div>
         <div class="hero-cta">
           <a href="https://talkdatatome.online" class="btn btn-primary btn-lg">Get started free</a>
@@ -368,6 +368,47 @@
   </section>
 
 </main>
+
+<script>
+(function () {
+  var cases = [
+    { q: "homeowners in Dallas · 55+ · $400k+ homes · mobile only", r: "≈ 34,800 deliverable records", t: "DNC-scrubbed · ready to ship" },
+    { q: "Medicare-eligible seniors 65+ across Florida", r: "≈ 128,000 deliverable records", t: "DNC-scrubbed · ready to ship" },
+    { q: "solar-intent homeowners in TX, CA & FL", r: "≈ 510,000 deliverable records", t: "refreshed daily · ready to ship" },
+    { q: "HVAC intent in 49301 & 49506, high home value", r: "≈ 6,900 deliverable records", t: "DNC-scrubbed · ready to ship" },
+    { q: "people who look like my best converters", r: "lookalike built · ≈ 240,000 matches", t: "ready to ship" }
+  ];
+  var askEl = document.getElementById("askText");
+  var retEl = document.getElementById("askRet");
+  if (!askEl || !retEl) return;
+  retEl.style.transition = "opacity .3s ease";
+  var i = 0;
+  function render(c) { retEl.innerHTML = "→ <b>" + c.r + "</b> · " + c.t; }
+  var sleep = function (ms) { return new Promise(function (res) { setTimeout(res, ms); }); };
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduce) {
+    function show() { var c = cases[i]; askEl.textContent = c.q; render(c); i = (i + 1) % cases.length; }
+    show(); setInterval(show, 4200); return;
+  }
+
+  async function type(s) { for (var k = 0; k < s.length; k++) { askEl.textContent += s[k]; await sleep(30); } }
+  async function erase() { var s = askEl.textContent; for (var k = s.length; k >= 0; k--) { askEl.textContent = s.slice(0, k); await sleep(14); } }
+
+  (async function loop() {
+    askEl.textContent = cases[0].q; render(cases[0]); retEl.style.opacity = "1";
+    while (true) {
+      await sleep(2600);
+      retEl.style.opacity = "0";
+      await sleep(320);
+      await erase();
+      i = (i + 1) % cases.length;
+      await type(cases[i].q);
+      render(cases[i]); retEl.style.opacity = "1";
+    }
+  })();
+})();
+</script>
 
 <!-- ── FOOTER ── -->
 <footer>
