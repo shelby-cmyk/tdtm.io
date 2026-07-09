@@ -25,61 +25,67 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f8f9fb;
-    --surface: #ffffff;
-    --surface-2: #f2f3f7;
-    --ink: #0c0c0e;
-    --muted: #565b6b;
-    --faint: #8b90a0;
-    --border: #e4e8f2;
-    --border-2: #dde3f1;
+    --bg: #0b0b0d;
+    --surface: #131318;
+    --surface-2: #191920;
+    --fg: #f4f5f8;
+    --muted: #9b9fa9;
+    --faint: #6a6d77;
+    --border: #23242c;
+    --border-2: #2d2f38;
     --accent: #c8ff00;
-    --accent-ink: #5f7500;
-    --bad: #d1584f;
+    --ink: #0c0c0e;
+    --bad: #e0655c;
     --f: 'DM Sans', Inter, system-ui, -apple-system, sans-serif;
-    --shadow-sm: 0 1px 2px rgba(12,12,14,.05);
-    --shadow: 0 1px 3px rgba(12,12,14,.06), 0 10px 30px rgba(12,12,14,.05);
+    --shadow: 0 1px 3px rgba(0,0,0,.4), 0 20px 50px rgba(0,0,0,.35);
     --radius: 16px;
     --maxw: 1120px;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--ink); font-family: var(--f); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--f); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--accent); color: var(--ink); }
   .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 
+  body::before {
+    content: ''; position: fixed; top: -40vh; left: 50%; transform: translateX(-50%);
+    width: 100vw; height: 80vh; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 50% 50% at center, rgba(200,255,0,.06), transparent 70%);
+  }
+  header, main, footer { position: relative; z-index: 1; }
+
   /* ── NAV ── */
-  .nav { position: sticky; top: 0; z-index: 50; background: rgba(248,249,251,.82); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(11,11,13,.75); backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid var(--border); }
   .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-  .nav-logo img { height: 26px; width: auto; display: block; }
+  .nav-logo img { height: 25px; width: auto; display: block; }
   .nav-links { display: flex; align-items: center; gap: 28px; }
   .nav-links a { font-size: 14px; color: var(--muted); font-weight: 500; transition: color .15s; }
-  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover { color: var(--fg); }
   .nav-cta { display: flex; align-items: center; gap: 16px; }
 
   /* ── BUTTONS ── */
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--f); font-size: 15px; font-weight: 700; border-radius: 999px; padding: 13px 24px; cursor: pointer; transition: transform .12s, box-shadow .2s, border-color .15s, color .15s; white-space: nowrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--f); font-size: 15px; font-weight: 700; border-radius: 999px; padding: 13px 24px; cursor: pointer; transition: transform .12s, box-shadow .2s, border-color .15s, color .15s, background .15s; white-space: nowrap; }
   .btn-sm { font-size: 14px; padding: 9px 18px; }
   .btn-lg { font-size: 16px; padding: 15px 30px; }
   .btn-primary { background: var(--accent); color: var(--ink); border: 1px solid var(--accent); }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(200,255,0,.4); }
-  .btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--border-2); }
-  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(200,255,0,.28); }
+  .btn-ghost { background: transparent; color: var(--fg); border: 1px solid var(--border-2); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
   .btn-text { color: var(--muted); font-weight: 600; }
-  .btn-text:hover { color: var(--ink); }
+  .btn-text:hover { color: var(--fg); }
   .btn-dark { background: var(--ink); color: #fff; border: 1px solid var(--ink); }
-  .btn-dark:hover { transform: translateY(-1px); }
+  .btn-dark:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(0,0,0,.4); }
 
   /* ── HERO ── */
-  .hero { text-align: center; padding: 92px 0 60px; }
+  .hero { text-align: center; padding: 96px 0 62px; }
   .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 12.5px; font-weight: 600; letter-spacing: .03em; color: var(--muted); background: var(--surface); border: 1px solid var(--border-2); border-radius: 999px; padding: 6px 15px; margin-bottom: 30px; }
-  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(200,255,0,.25); }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
   h1 { font-size: clamp(40px, 6.2vw, 74px); line-height: 1.0; letter-spacing: -.04em; font-weight: 800; max-width: 15ch; margin: 0 auto; }
   h1 .mark { position: relative; white-space: nowrap; }
   h1 .mark::after { content: ''; position: absolute; left: -1px; right: -1px; bottom: .06em; height: .3em; background: var(--accent); z-index: -1; border-radius: 3px; }
   .sub { font-size: clamp(17px, 2vw, 20px); color: var(--muted); line-height: 1.6; max-width: 620px; margin: 28px auto 0; }
-  .sub strong { color: var(--ink); font-weight: 600; }
+  .sub strong { color: var(--fg); font-weight: 600; }
   .hero-cta { display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
   .hero-mini { display: flex; align-items: center; gap: 16px; justify-content: center; margin-top: 24px; font-size: 13px; color: var(--faint); flex-wrap: wrap; }
   .hero-mini .b { color: var(--muted); font-weight: 600; }
@@ -88,36 +94,36 @@
   /* ── SECTIONS ── */
   section { padding: 66px 0; }
   .sec-head { text-align: center; max-width: 700px; margin: 0 auto 46px; }
-  .sec-tag { font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-ink); }
+  .sec-tag { font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
   .sec-head h2 { font-size: clamp(28px, 3.8vw, 44px); line-height: 1.08; letter-spacing: -.028em; font-weight: 800; margin-top: 11px; }
   .sec-head p { color: var(--muted); margin-top: 13px; font-size: 17px; }
 
   /* ── PAIN → RELIEF COMPARE ── */
   .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 960px; margin: 0 auto; }
-  .col { border: 1px solid var(--border-2); border-radius: 20px; padding: 32px 30px; background: var(--surface); box-shadow: var(--shadow-sm); }
-  .col.old { background: #fbfbfc; }
-  .col.new { border-color: var(--ink); box-shadow: var(--shadow); }
+  .col { border: 1px solid var(--border-2); border-radius: 20px; padding: 32px 30px; background: var(--surface); }
+  .col.old { background: #101014; }
+  .col.new { border-color: rgba(200,255,0,.45); box-shadow: 0 0 0 1px rgba(200,255,0,.12), var(--shadow); }
   .col h3 { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 22px; }
-  .col.new h3 { color: var(--accent-ink); }
+  .col.new h3 { color: var(--accent); }
   .col ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
   .col li { display: flex; gap: 13px; font-size: 15.5px; line-height: 1.5; align-items: flex-start; }
   .col.old li { color: var(--muted); }
-  .col.new li { color: var(--ink); }
+  .col.new li { color: var(--fg); }
   .ic { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; margin-top: 1px; }
-  .ic.x { background: #fbe9e7; }
+  .ic.x { background: rgba(224,101,92,.15); }
   .ic.c { background: var(--accent); }
-  .arrow-mid { text-align: center; margin: 30px auto 0; color: var(--faint); font-size: 14px; font-weight: 600; }
 
   /* ── BENEFIT TILES ── */
   .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .tile { border: 1px solid var(--border-2); border-radius: var(--radius); background: var(--surface); padding: 30px 28px; box-shadow: var(--shadow-sm); }
+  .tile { border: 1px solid var(--border-2); border-radius: var(--radius); background: var(--surface); padding: 30px 28px; transition: border-color .18s, transform .18s; }
+  .tile:hover { border-color: rgba(200,255,0,.35); transform: translateY(-2px); }
   .tile .bic { width: 40px; height: 40px; border-radius: 11px; background: var(--surface-2); border: 1px solid var(--border-2); display: grid; place-items: center; margin-bottom: 18px; }
   .tile h3 { font-size: 19px; font-weight: 800; letter-spacing: -.015em; }
   .tile p { color: var(--muted); font-size: 15px; margin-top: 9px; line-height: 1.6; }
 
   /* ── STEPS ── */
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
-  .step .n { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--accent); font-weight: 700; font-size: 14px; }
+  .step .n { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--ink); font-weight: 700; font-size: 14px; }
   .step h3 { font-size: 19px; font-weight: 700; margin: 14px 0 8px; letter-spacing: -.01em; }
   .step p { color: var(--muted); font-size: 15px; line-height: 1.6; }
 
@@ -128,20 +134,19 @@
   .actcard p { color: var(--muted); font-size: 13.5px; margin-top: 7px; line-height: 1.55; }
 
   /* ── TRUST BAR ── */
-  .trustbar { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border-2); border-radius: 18px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .trustbar { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border-2); border-radius: 18px; background: var(--surface); overflow: hidden; }
   .trust { text-align: center; padding: 28px 20px; }
   .trust + .trust { border-left: 1px solid var(--border); }
   .trust .big { font-size: clamp(20px, 2.3vw, 26px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
-  .trust .big .em { color: var(--accent-ink); }
+  .trust .big .em { color: var(--accent); }
   .trust .lbl { font-size: 13px; color: var(--muted); margin-top: 7px; }
   @media (max-width: 700px) { .trustbar { grid-template-columns: 1fr; } .trust + .trust { border-left: 0; border-top: 1px solid var(--border); } }
 
   /* ── CTA BAND ── */
-  .band { background: var(--ink); border-radius: 28px; text-align: center; padding: 78px 32px; }
-  .band h2 { font-size: clamp(30px, 4.8vw, 54px); font-weight: 800; letter-spacing: -.028em; color: #fff; line-height: 1.02; }
-  .band h2 .em { color: var(--accent); }
-  .band p { color: #b8bcc9; margin: 16px auto 32px; max-width: 540px; font-size: 17px; }
-  .band .note { color: #7b8095; font-size: 13px; margin-top: 16px; }
+  .band { background: var(--accent); border-radius: 28px; text-align: center; padding: 78px 32px; }
+  .band h2 { font-size: clamp(30px, 4.8vw, 54px); font-weight: 800; letter-spacing: -.028em; color: var(--ink); line-height: 1.02; }
+  .band p { color: #33420b; margin: 16px auto 32px; max-width: 540px; font-size: 17px; font-weight: 500; }
+  .band .note { color: #3f4d10; font-size: 13px; margin-top: 16px; font-weight: 600; }
 
   /* ── FOOTER ── */
   footer { border-top: 1px solid var(--border); padding: 44px 0; margin-top: 24px; }
@@ -149,7 +154,7 @@
   .foot-inner img { height: 22px; }
   .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
   .foot-links a { font-size: 14px; color: var(--muted); }
-  .foot-links a:hover { color: var(--ink); }
+  .foot-links a:hover { color: var(--accent); }
   .foot-legal { font-size: 13px; color: var(--faint); margin-top: 22px; }
 
   @media (max-width: 900px) {
@@ -166,7 +171,7 @@
 <!-- ── NAV ── -->
 <header class="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><img src="brand/logo-light.svg" alt="TDTM — Talk Data To Me"></a>
+    <a href="/" class="nav-logo"><img src="brand/logo.svg" alt="TDTM — Talk Data To Me"></a>
     <nav class="nav-links">
       <a href="#problem">The problem</a>
       <a href="#why">Why TDTM</a>
@@ -208,11 +213,11 @@
       <div class="col old">
         <h3>The old way</h3>
         <ul>
-          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>Annual contracts and six-figure minimums</li>
-          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>Stale lists, sold to everyone, full of dead numbers</li>
-          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>SQL, portals, or a data team just to pull a list</li>
-          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>Book a call, wait days for a quote and a sample</li>
-          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>Ad budget burned on audiences that never convert</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#e0655c" stroke-width="2" stroke-linecap="round"/></svg></span>Annual contracts and six-figure minimums</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#e0655c" stroke-width="2" stroke-linecap="round"/></svg></span>Stale lists, sold to everyone, full of dead numbers</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#e0655c" stroke-width="2" stroke-linecap="round"/></svg></span>SQL, portals, or a data team just to pull a list</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#e0655c" stroke-width="2" stroke-linecap="round"/></svg></span>Book a call, wait days for a quote and a sample</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#e0655c" stroke-width="2" stroke-linecap="round"/></svg></span>Ad budget burned on audiences that never convert</li>
         </ul>
       </div>
       <div class="col new">
@@ -236,32 +241,32 @@
     </div>
     <div class="tiles">
       <div class="tile">
-        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#0c0c0e" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#c8ff00" stroke="#0c0c0e" stroke-width="1.5"/></svg></div>
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#f4f5f8" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#c8ff00" stroke="#f4f5f8" stroke-width="1.5"/></svg></div>
         <h3>Reach who actually converts</h3>
         <p>Upload your best customers and TDTM finds more people like them — so your spend lands on buyers, not tire-kickers.</p>
       </div>
       <div class="tile">
-        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 8h7a3 3 0 010 6H8a3 3 0 000 6h9" stroke="#0c0c0e" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 8h7a3 3 0 010 6H8a3 3 0 000 6h9" stroke="#f4f5f8" stroke-width="2" stroke-linecap="round"/></svg></div>
         <h3>Only pay for what you use</h3>
         <p>No lifetime "database access" you'll never finish paying off. Clear per-record pricing, and a free tier to prove it first.</p>
       </div>
       <div class="tile">
-        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" stroke="#0c0c0e" stroke-width="2" stroke-linejoin="round" fill="#c8ff00"/></svg></div>
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" stroke="#f4f5f8" stroke-width="2" stroke-linejoin="round" fill="#c8ff00"/></svg></div>
         <h3>Live in minutes, not weeks</h3>
         <p>No SQL, no onboarding project, no waiting on exports. Ask, refine, and your file lands in your inbox in minutes.</p>
       </div>
       <div class="tile">
-        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z" stroke="#0c0c0e" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#0c0c0e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z" stroke="#f4f5f8" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#c8ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Compliant by default</h3>
         <p>Cell DNC scrubbed at pull time, suppression built in, and privacy-first identity resolution. Fewer headaches, cleaner lists.</p>
       </div>
       <div class="tile">
-        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#0c0c0e" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#f4f5f8" stroke-width="2" stroke-linecap="round"/></svg></div>
         <h3>Works where you already run</h3>
         <p>Take it as a feed, a website pixel, an encrypted push to your ad platforms, or a real-time API. Your stack, your call.</p>
       </div>
       <div class="tile">
-        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 019-9v9l6.5 6.5A9 9 0 013 12z" stroke="#0c0c0e" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 019-9v9l6.5 6.5A9 9 0 013 12z" stroke="#f4f5f8" stroke-width="2" stroke-linejoin="round"/></svg></div>
         <h3>Turn your traffic into contacts</h3>
         <p>A one-line pixel resolves anonymous website visitors into real, contactable people — and shows you who's ready to buy.</p>
       </div>
@@ -322,7 +327,7 @@
     <div class="band">
       <h2>Your next customers are one sentence away.</h2>
       <p>Describe who you want to reach and see your first audience free — in under a minute.</p>
-      <a href="https://talkdatatome.online" class="btn btn-primary btn-lg">Get started free</a>
+      <a href="https://talkdatatome.online" class="btn btn-dark btn-lg">Get started free</a>
       <p class="note">No contract · No minimum · No sales call</p>
     </div>
   </section>
@@ -333,7 +338,7 @@
 <footer>
   <div class="wrap">
     <div class="foot-inner">
-      <img src="brand/logo-light.svg" alt="TDTM">
+      <img src="brand/logo.svg" alt="TDTM">
       <div class="foot-links">
         <a href="https://talkdatatome.online">Get started</a>
         <a href="https://talkdatatome.online">Sign in</a>
