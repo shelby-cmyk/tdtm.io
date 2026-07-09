@@ -152,14 +152,15 @@
   @media (max-width: 700px) { .trust3 { grid-template-columns: 1fr; gap: 26px; } }
 
   /* ── CTA BAND ── */
-  .band { position: relative; background: var(--accent); border-radius: 24px; padding: 76px 40px; overflow: hidden; }
-  .band .bmark { position: absolute; right: -40px; bottom: -60px; width: 320px; opacity: .12; }
-  .band h2 { font-size: clamp(32px, 5vw, 58px); font-weight: 800; letter-spacing: -.03em; color: var(--ink); line-height: .98; max-width: 16ch; }
-  .band p { color: #33420b; margin: 18px 0 30px; max-width: 480px; font-size: 17px; font-weight: 500; }
+  .band { position: relative; background: linear-gradient(180deg, #14141a, #0e0e12); border: 1px solid var(--border-2); border-radius: 24px; padding: 76px 40px; overflow: hidden; }
+  .band::before { content: ''; position: absolute; inset: 0; background: radial-gradient(55% 120% at 82% 12%, rgba(200,255,0,.12), transparent 60%); pointer-events: none; }
+  .band > * { position: relative; z-index: 1; }
+  .band .bmark { position: absolute; right: -40px; bottom: -60px; width: 320px; opacity: .06; z-index: 0; }
+  .band h2 { font-size: clamp(32px, 5vw, 58px); font-weight: 800; letter-spacing: -.03em; color: #fff; line-height: .98; max-width: 16ch; }
+  .band h2 .em { color: var(--accent); }
+  .band p { color: var(--muted); margin: 18px 0 30px; max-width: 480px; font-size: 17px; }
   .band .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-  .band .btn-outline-dark { background: transparent; color: var(--ink); border: 1px solid rgba(12,12,14,.35); }
-  .band .btn-outline-dark:hover { border-color: var(--ink); transform: translateY(-1px); }
-  .band .note { font-family: var(--mono); color: #3f4d10; font-size: 12.5px; margin-top: 16px; }
+  .band .note { font-family: var(--mono); color: var(--faint); font-size: 12.5px; margin-top: 16px; }
 
   /* ── FOOTER ── */
   footer { border-top: 1px solid var(--border); padding: 46px 0; margin-top: 40px; }
@@ -352,17 +353,17 @@
   <section class="wrap">
     <div class="band">
       <svg class="bmark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-        <path d="M40 20 H24 V80 H40" stroke="#0c0c0e" stroke-width="7" stroke-linejoin="bevel"/>
-        <path d="M60 20 H76 V80 H60" stroke="#0c0c0e" stroke-width="7" stroke-linejoin="bevel"/>
-        <path d="M37 34 h26 l-3 8 h-23 z" fill="#0c0c0e"/>
-        <path d="M37 47 h20 l-3 8 h-17 z" fill="#0c0c0e"/>
-        <path d="M37 60 h14 l-3 8 h-11 z" fill="#0c0c0e"/>
+        <path d="M40 20 H24 V80 H40" stroke="#c8ff00" stroke-width="7" stroke-linejoin="bevel"/>
+        <path d="M60 20 H76 V80 H60" stroke="#c8ff00" stroke-width="7" stroke-linejoin="bevel"/>
+        <path d="M37 34 h26 l-3 8 h-23 z" fill="#c8ff00"/>
+        <path d="M37 47 h20 l-3 8 h-17 z" fill="#c8ff00"/>
+        <path d="M37 60 h14 l-3 8 h-11 z" fill="#c8ff00"/>
       </svg>
-      <h2>Your next customers are one sentence away.</h2>
+      <h2>Your next customers are <span class="em">one sentence away.</span></h2>
       <p>Describe who you want to reach and see your first audience free — in under a minute.</p>
       <div class="cta-row">
-        <a href="https://talkdatatome.online" class="btn btn-dark btn-lg">Get started free</a>
-        <a href="mailto:hello@tof.io?subject=TDTM%20%E2%80%94%20a%20few%20questions" class="btn btn-outline-dark btn-lg">Not ready? Talk to us</a>
+        <a href="https://talkdatatome.online" class="btn btn-primary btn-lg">Get started free</a>
+        <a href="mailto:hello@tof.io?subject=TDTM%20%E2%80%94%20a%20few%20questions" class="btn btn-ghost btn-lg">Not ready? Talk to us</a>
       </div>
       <p class="note">start free · no SQL · no sales call</p>
     </div>
