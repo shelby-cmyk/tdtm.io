@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="TDTM — Talk Data To Me. Find your next customers. Just ask. The AI that turns a plain-English request into a ready-to-use audience — a data feed, a website pixel, an ad-platform push, or a real-time API. Backed by TOF.">
+<meta name="description" content="TDTM — Talk Data To Me. Stop renting stale lists and waiting on data teams. Describe who you want to reach in plain English and get a fresh, deliverable audience in minutes. No contracts, no minimums, no SQL, no sales calls. Backed by TOF.">
 <meta property="og:title" content="TDTM — Talk Data To Me · Find your next customers. Just ask.">
-<meta property="og:description" content="Describe who you want to reach. TDTM finds the data, shows the count and the price, and sets you up — feed, pixel, ad-platform push, or API. No SQL. No forms. No sales call.">
+<meta property="og:description" content="Stop renting stale lists. Describe who you want to reach and get a fresh, deliverable audience in minutes — no contracts, no minimums, no SQL, no sales calls.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tdtm.io">
 <meta property="og:image" content="https://tdtm.io/tdtm-og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="TDTM — Talk Data To Me · Find your next customers. Just ask.">
-<meta name="twitter:description" content="Describe who you want to reach. TDTM builds the audience and ships it wherever your campaigns run.">
+<meta name="twitter:description" content="Stop renting stale lists. Describe who you want to reach and get a fresh, deliverable audience in minutes.">
 <meta name="twitter:image" content="https://tdtm.io/tdtm-og.png">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://tdtm.io">
@@ -35,13 +35,12 @@
     --border-2: #dde3f1;
     --accent: #c8ff00;
     --accent-ink: #5f7500;
+    --bad: #d1584f;
     --f: 'DM Sans', Inter, system-ui, -apple-system, sans-serif;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     --shadow-sm: 0 1px 2px rgba(12,12,14,.05);
     --shadow: 0 1px 3px rgba(12,12,14,.06), 0 10px 30px rgba(12,12,14,.05);
-    --shadow-lg: 0 30px 70px rgba(20,24,54,.14);
     --radius: 16px;
-    --maxw: 1140px;
+    --maxw: 1120px;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -49,7 +48,6 @@
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--accent); color: var(--ink); }
   .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-  .mono { font-family: var(--mono); }
 
   /* ── NAV ── */
   .nav { position: sticky; top: 0; z-index: 50; background: rgba(248,249,251,.82); backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid var(--border); }
@@ -61,98 +59,88 @@
   .nav-cta { display: flex; align-items: center; gap: 16px; }
 
   /* ── BUTTONS ── */
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--f); font-size: 15px; font-weight: 700; border-radius: 999px; padding: 13px 24px; cursor: pointer; transition: transform .12s, box-shadow .2s, background .15s, color .15s, border-color .15s; white-space: nowrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--f); font-size: 15px; font-weight: 700; border-radius: 999px; padding: 13px 24px; cursor: pointer; transition: transform .12s, box-shadow .2s, border-color .15s, color .15s; white-space: nowrap; }
   .btn-sm { font-size: 14px; padding: 9px 18px; }
+  .btn-lg { font-size: 16px; padding: 15px 30px; }
   .btn-primary { background: var(--accent); color: var(--ink); border: 1px solid var(--accent); }
   .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(200,255,0,.4); }
   .btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--border-2); }
   .btn-ghost:hover { border-color: var(--ink); }
   .btn-text { color: var(--muted); font-weight: 600; }
   .btn-text:hover { color: var(--ink); }
+  .btn-dark { background: var(--ink); color: #fff; border: 1px solid var(--ink); }
+  .btn-dark:hover { transform: translateY(-1px); }
 
-  /* ── HERO (split) ── */
-  .hero { padding: 72px 0 40px; }
-  .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 56px; align-items: center; }
-  .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 12.5px; font-weight: 600; letter-spacing: .03em; color: var(--muted); background: var(--surface); border: 1px solid var(--border-2); border-radius: 999px; padding: 6px 14px; margin-bottom: 26px; }
+  /* ── HERO ── */
+  .hero { text-align: center; padding: 92px 0 60px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 12.5px; font-weight: 600; letter-spacing: .03em; color: var(--muted); background: var(--surface); border: 1px solid var(--border-2); border-radius: 999px; padding: 6px 15px; margin-bottom: 30px; }
   .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(200,255,0,.25); }
-  h1 { font-size: clamp(40px, 5.4vw, 68px); line-height: 1.0; letter-spacing: -.038em; font-weight: 800; }
+  h1 { font-size: clamp(40px, 6.2vw, 74px); line-height: 1.0; letter-spacing: -.04em; font-weight: 800; max-width: 15ch; margin: 0 auto; }
   h1 .mark { position: relative; white-space: nowrap; }
-  h1 .mark::after { content: ''; position: absolute; left: -1px; right: -1px; bottom: .07em; height: .3em; background: var(--accent); z-index: -1; border-radius: 3px; }
-  .sub { font-size: clamp(16px, 1.5vw, 18px); color: var(--muted); line-height: 1.62; max-width: 480px; margin: 24px 0 0; }
+  h1 .mark::after { content: ''; position: absolute; left: -1px; right: -1px; bottom: .06em; height: .3em; background: var(--accent); z-index: -1; border-radius: 3px; }
+  .sub { font-size: clamp(17px, 2vw, 20px); color: var(--muted); line-height: 1.6; max-width: 620px; margin: 28px auto 0; }
   .sub strong { color: var(--ink); font-weight: 600; }
-  .hero-cta { display: flex; gap: 13px; flex-wrap: wrap; margin-top: 32px; }
-  .hero-mini { display: flex; align-items: center; gap: 18px; margin-top: 26px; font-size: 13px; color: var(--faint); flex-wrap: wrap; }
+  .hero-cta { display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
+  .hero-mini { display: flex; align-items: center; gap: 16px; justify-content: center; margin-top: 24px; font-size: 13px; color: var(--faint); flex-wrap: wrap; }
   .hero-mini .b { color: var(--muted); font-weight: 600; }
   .hero-mini .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--border-2); }
 
-  /* ── PRODUCT CARD ── */
-  .stage { position: relative; }
-  .stage::before { content: ''; position: absolute; inset: -8% -6% -12% -6%; background: radial-gradient(60% 55% at 70% 30%, rgba(200,255,0,.30), transparent 70%); filter: blur(8px); z-index: 0; }
-  .demo { position: relative; z-index: 1; border: 1px solid var(--border-2); border-radius: 18px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow-lg); }
-  .demo-bar { display: flex; align-items: center; gap: 8px; padding: 13px 16px; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--faint); font-weight: 600; letter-spacing: .04em; }
-  .demo-bar .dots { display: flex; gap: 6px; margin-right: 6px; }
-  .demo-bar .dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--border-2); }
-  .msg { padding: 18px; display: flex; gap: 13px; }
-  .msg + .msg { border-top: 1px solid var(--border); }
-  .msg.bot { background: var(--surface-2); }
-  .avatar { width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0; display: grid; place-items: center; font-size: 9px; font-weight: 700; }
-  .avatar.you { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border-2); }
-  .avatar.bot { background: var(--ink); }
-  .avatar.bot img { width: 17px; height: 17px; }
-  .msg .txt { font-size: 14.5px; line-height: 1.55; padding-top: 3px; }
-  .result { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
-  .result .n { font-size: 27px; font-weight: 800; letter-spacing: -.02em; }
-  .result .chk { width: 20px; height: 20px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; }
-  .result .u { font-size: 13px; color: var(--muted); margin-top: 5px; }
-  .chips { display: flex; gap: 7px; margin-top: 14px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--faint); }
-  .chip { font-size: 12px; font-weight: 600; color: var(--ink); background: var(--surface); border: 1px solid var(--border-2); border-radius: 999px; padding: 5px 11px; }
-  .chip.on { background: var(--accent); border-color: var(--accent); }
-  .fakebar { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-top: 1px solid var(--border); color: var(--faint); font-size: 13.5px; }
-  .fakebar .send { margin-left: auto; width: 30px; height: 30px; border-radius: 8px; background: var(--accent); display: grid; place-items: center; }
-
-  /* ── TRUST BAR ── */
-  .trustbar { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border-2); border-radius: 18px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow-sm); margin-top: 8px; }
-  .trust { text-align: center; padding: 26px 20px; }
-  .trust + .trust { border-left: 1px solid var(--border); }
-  .trust .big { font-size: clamp(19px, 2.2vw, 25px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
-  .trust .big .em { color: var(--accent-ink); }
-  .trust .lbl { font-size: 13px; color: var(--muted); margin-top: 6px; }
-  @media (max-width: 700px) { .trustbar { grid-template-columns: 1fr; } .trust + .trust { border-left: 0; border-top: 1px solid var(--border); } }
-
   /* ── SECTIONS ── */
-  section { padding: 64px 0; }
-  .sec-head { text-align: center; max-width: 680px; margin: 0 auto 44px; }
+  section { padding: 66px 0; }
+  .sec-head { text-align: center; max-width: 700px; margin: 0 auto 46px; }
   .sec-tag { font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-ink); }
-  .sec-head h2 { font-size: clamp(27px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -.025em; font-weight: 800; margin-top: 11px; }
-  .sec-head p { color: var(--muted); margin-top: 12px; font-size: 17px; }
+  .sec-head h2 { font-size: clamp(28px, 3.8vw, 44px); line-height: 1.08; letter-spacing: -.028em; font-weight: 800; margin-top: 11px; }
+  .sec-head p { color: var(--muted); margin-top: 13px; font-size: 17px; }
+
+  /* ── PAIN → RELIEF COMPARE ── */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 960px; margin: 0 auto; }
+  .col { border: 1px solid var(--border-2); border-radius: 20px; padding: 32px 30px; background: var(--surface); box-shadow: var(--shadow-sm); }
+  .col.old { background: #fbfbfc; }
+  .col.new { border-color: var(--ink); box-shadow: var(--shadow); }
+  .col h3 { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 22px; }
+  .col.new h3 { color: var(--accent-ink); }
+  .col ul { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .col li { display: flex; gap: 13px; font-size: 15.5px; line-height: 1.5; align-items: flex-start; }
+  .col.old li { color: var(--muted); }
+  .col.new li { color: var(--ink); }
+  .ic { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; margin-top: 1px; }
+  .ic.x { background: #fbe9e7; }
+  .ic.c { background: var(--accent); }
+  .arrow-mid { text-align: center; margin: 30px auto 0; color: var(--faint); font-size: 14px; font-weight: 600; }
+
+  /* ── BENEFIT TILES ── */
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tile { border: 1px solid var(--border-2); border-radius: var(--radius); background: var(--surface); padding: 30px 28px; box-shadow: var(--shadow-sm); }
+  .tile .bic { width: 40px; height: 40px; border-radius: 11px; background: var(--surface-2); border: 1px solid var(--border-2); display: grid; place-items: center; margin-bottom: 18px; }
+  .tile h3 { font-size: 19px; font-weight: 800; letter-spacing: -.015em; }
+  .tile p { color: var(--muted); font-size: 15px; margin-top: 9px; line-height: 1.6; }
 
   /* ── STEPS ── */
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .step .n { font-family: var(--mono); font-size: 13px; color: var(--accent-ink); font-weight: 700; }
-  .step h3 { font-size: 19px; font-weight: 700; margin: 12px 0 8px; letter-spacing: -.01em; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .step .n { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--accent); font-weight: 700; font-size: 14px; }
+  .step h3 { font-size: 19px; font-weight: 700; margin: 14px 0 8px; letter-spacing: -.01em; }
   .step p { color: var(--muted); font-size: 15px; line-height: 1.6; }
 
-  /* ── ACTIVATE TILES ── */
-  .tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-  .tile { border: 1px solid var(--border-2); border-radius: var(--radius); background: var(--surface); padding: 28px; box-shadow: var(--shadow-sm); transition: transform .18s, box-shadow .18s; }
-  .tile:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-  .tile .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .tile h3 { font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
-  .tile .price { font-size: 12px; font-weight: 700; color: var(--accent-ink); background: #eef8c9; border: 1px solid #dcefad; padding: 4px 11px; border-radius: 999px; white-space: nowrap; }
-  .tile p { color: var(--muted); font-size: 15px; margin-top: 12px; line-height: 1.6; }
+  /* ── ACTIVATE STRIP ── */
+  .act { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .actcard { border: 1px solid var(--border-2); border-radius: 14px; background: var(--surface); padding: 22px 20px; }
+  .actcard h4 { font-size: 16px; font-weight: 800; letter-spacing: -.01em; }
+  .actcard p { color: var(--muted); font-size: 13.5px; margin-top: 7px; line-height: 1.55; }
 
-  /* ── DATA ── */
-  .data { text-align: center; }
-  .data-h { font-size: clamp(30px, 5.2vw, 60px); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; max-width: 16ch; margin: 14px auto 0; }
-  .data-h .em { color: var(--accent-ink); }
-  .tagcloud { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; max-width: 760px; margin: 32px auto 0; }
-  .tag { font-size: 13px; font-weight: 500; color: var(--muted); background: var(--surface); border: 1px solid var(--border-2); border-radius: 999px; padding: 7px 14px; }
+  /* ── TRUST BAR ── */
+  .trustbar { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border-2); border-radius: 18px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .trust { text-align: center; padding: 28px 20px; }
+  .trust + .trust { border-left: 1px solid var(--border); }
+  .trust .big { font-size: clamp(20px, 2.3vw, 26px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
+  .trust .big .em { color: var(--accent-ink); }
+  .trust .lbl { font-size: 13px; color: var(--muted); margin-top: 7px; }
+  @media (max-width: 700px) { .trustbar { grid-template-columns: 1fr; } .trust + .trust { border-left: 0; border-top: 1px solid var(--border); } }
 
   /* ── CTA BAND ── */
-  .band { background: var(--ink); border-radius: 28px; text-align: center; padding: 72px 32px; }
-  .band h2 { font-size: clamp(30px, 4.6vw, 52px); font-weight: 800; letter-spacing: -.025em; color: #fff; line-height: 1.02; }
+  .band { background: var(--ink); border-radius: 28px; text-align: center; padding: 78px 32px; }
+  .band h2 { font-size: clamp(30px, 4.8vw, 54px); font-weight: 800; letter-spacing: -.028em; color: #fff; line-height: 1.02; }
   .band h2 .em { color: var(--accent); }
-  .band p { color: #b8bcc9; margin: 16px auto 30px; max-width: 520px; font-size: 17px; }
+  .band p { color: #b8bcc9; margin: 16px auto 32px; max-width: 540px; font-size: 17px; }
   .band .note { color: #7b8095; font-size: 13px; margin-top: 16px; }
 
   /* ── FOOTER ── */
@@ -166,10 +154,9 @@
 
   @media (max-width: 900px) {
     .nav-links { display: none; }
-    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .steps, .tiles { grid-template-columns: 1fr; }
-    .hero { padding: 52px 0 32px; }
-    section { padding: 50px 0; }
+    .compare, .tiles, .steps, .act { grid-template-columns: 1fr; }
+    .hero { padding: 64px 0 48px; }
+    section { padding: 52px 0; }
   }
   @media (max-width: 560px) { .hero-cta .btn, .band .btn { width: 100%; } }
 </style>
@@ -181,9 +168,9 @@
   <div class="nav-inner">
     <a href="/" class="nav-logo"><img src="brand/logo-light.svg" alt="TDTM — Talk Data To Me"></a>
     <nav class="nav-links">
+      <a href="#problem">The problem</a>
+      <a href="#why">Why TDTM</a>
       <a href="#how">How it works</a>
-      <a href="#activate">Activate</a>
-      <a href="#data">Data</a>
     </nav>
     <div class="nav-cta">
       <a href="https://talkdatatome.online" class="btn-text" style="font-size:14px;">Sign in</a>
@@ -196,52 +183,124 @@
 
   <!-- ── HERO ── -->
   <section class="hero wrap">
-    <div class="hero-grid">
-      <div>
-        <span class="eyebrow"><span class="dot"></span> Backed by TOF · Talk Data To Me</span>
-        <h1>Find your next customers. <span class="mark">Just ask.</span></h1>
-        <p class="sub">The AI that turns a plain-English request into a ready-to-use audience — a data feed, a website pixel, an ad-platform push, or a real-time API. <strong>No SQL. No forms. No sales call.</strong></p>
-        <div class="hero-cta">
-          <a href="https://talkdatatome.online" class="btn btn-primary">Get started free</a>
-          <a href="https://talkdatatome.online" class="btn btn-ghost">Talk to us</a>
-        </div>
-        <div class="hero-mini">
-          <span class="b">Free to start</span><span class="sep"></span>
-          <span>1,000 records</span><span class="sep"></span>
-          <span>no card required</span>
-        </div>
-      </div>
+    <span class="eyebrow"><span class="dot"></span> For marketers &amp; lead-gen teams who are done with data brokers</span>
+    <h1>Your next customers are already out there. <span class="mark">Just ask.</span></h1>
+    <p class="sub">Stop renting stale lists, learning SQL, or waiting on a sales rep for a quote. Describe who you want to reach in plain English — and get a fresh, deliverable audience in minutes. <strong>No contracts. No minimums. No sales call.</strong></p>
+    <div class="hero-cta">
+      <a href="https://talkdatatome.online" class="btn btn-primary btn-lg">Get started free</a>
+      <a href="#problem" class="btn btn-ghost btn-lg">See how it's different</a>
+    </div>
+    <div class="hero-mini">
+      <span class="b">Free to start</span><span class="sep"></span>
+      <span>1,000 records</span><span class="sep"></span>
+      <span>no card required</span>
+    </div>
+  </section>
 
-      <div class="stage">
-        <div class="demo">
-          <div class="demo-bar"><div class="dots"><span></span><span></span><span></span></div> TDTM · chat</div>
-          <div class="msg you">
-            <div class="avatar you">YOU</div>
-            <div class="txt">Homeowners in the Dallas metro, age 55+, $400k+ home value, mobile numbers only.</div>
-          </div>
-          <div class="msg bot">
-            <div class="avatar bot"><img src="brand/icon.svg" alt=""></div>
-            <div class="txt" style="flex:1;">
-              Matched against the national identity graph.
-              <div class="result">
-                <span class="n">34,812</span>
-                <span class="chk"><svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#0c0c0e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              </div>
-              <div class="u">deliverable records · DNC-scrubbed · mobile-only</div>
-              <div class="chips">Ship it as → <span class="chip on">Feed</span><span class="chip">Pixel</span><span class="chip">Ad platforms</span><span class="chip">API</span></div>
-            </div>
-          </div>
-          <div class="fakebar">
-            Describe who you want to reach…
-            <span class="send"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12h14M12 5l7 7-7 7" stroke="#0c0c0e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </div>
-        </div>
+  <!-- ── PROBLEM → RELIEF ── -->
+  <section id="problem" class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">The problem</span>
+      <h2>Getting good data shouldn't be this painful.</h2>
+      <p>The old way of buying audiences is slow, expensive, and built to lock you in. We tore it up.</p>
+    </div>
+    <div class="compare">
+      <div class="col old">
+        <h3>The old way</h3>
+        <ul>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>Annual contracts and six-figure minimums</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>Stale lists, sold to everyone, full of dead numbers</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>SQL, portals, or a data team just to pull a list</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>Book a call, wait days for a quote and a sample</li>
+          <li><span class="ic x"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="#d1584f" stroke-width="2" stroke-linecap="round"/></svg></span>Ad budget burned on audiences that never convert</li>
+        </ul>
+      </div>
+      <div class="col new">
+        <h3>With TDTM</h3>
+        <ul>
+          <li><span class="ic c"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#0c0c0e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Start free — no contract, no minimum, cancel anytime</li>
+          <li><span class="ic c"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#0c0c0e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Fresh, DNC-scrubbed records — you see exactly what you got</li>
+          <li><span class="ic c"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#0c0c0e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Just describe who you want — plain English, seconds</li>
+          <li><span class="ic c"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#0c0c0e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>See the exact count and price before you commit</li>
+          <li><span class="ic c"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#0c0c0e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Target — and retarget — the people who actually convert</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ── TRUST BAR ── -->
-  <section class="wrap" style="padding:20px 24px 8px;">
+  <!-- ── WHY / BENEFITS ── -->
+  <section id="why" class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">Why TDTM</span>
+      <h2>Fewer wasted dollars. More of the right people.</h2>
+    </div>
+    <div class="tiles">
+      <div class="tile">
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#0c0c0e" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="#c8ff00" stroke="#0c0c0e" stroke-width="1.5"/></svg></div>
+        <h3>Reach who actually converts</h3>
+        <p>Upload your best customers and TDTM finds more people like them — so your spend lands on buyers, not tire-kickers.</p>
+      </div>
+      <div class="tile">
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 8h7a3 3 0 010 6H8a3 3 0 000 6h9" stroke="#0c0c0e" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Only pay for what you use</h3>
+        <p>No lifetime "database access" you'll never finish paying off. Clear per-record pricing, and a free tier to prove it first.</p>
+      </div>
+      <div class="tile">
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" stroke="#0c0c0e" stroke-width="2" stroke-linejoin="round" fill="#c8ff00"/></svg></div>
+        <h3>Live in minutes, not weeks</h3>
+        <p>No SQL, no onboarding project, no waiting on exports. Ask, refine, and your file lands in your inbox in minutes.</p>
+      </div>
+      <div class="tile">
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z" stroke="#0c0c0e" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#0c0c0e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Compliant by default</h3>
+        <p>Cell DNC scrubbed at pull time, suppression built in, and privacy-first identity resolution. Fewer headaches, cleaner lists.</p>
+      </div>
+      <div class="tile">
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#0c0c0e" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Works where you already run</h3>
+        <p>Take it as a feed, a website pixel, an encrypted push to your ad platforms, or a real-time API. Your stack, your call.</p>
+      </div>
+      <div class="tile">
+        <div class="bic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 019-9v9l6.5 6.5A9 9 0 013 12z" stroke="#0c0c0e" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>Turn your traffic into contacts</h3>
+        <p>A one-line pixel resolves anonymous website visitors into real, contactable people — and shows you who's ready to buy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section id="how" class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">How it works</span>
+      <h2>Ask. See the count. Ship it.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n">1</span>
+        <h3>Say who you want</h3>
+        <p>"Homeowners in Dallas, 55+, $400k+ homes, mobile only." Plain English — or upload past converters to clone them.</p>
+      </div>
+      <div class="step">
+        <span class="n">2</span>
+        <h3>See the count &amp; price</h3>
+        <p>A live record count updates as you refine. Know exactly how many people you'll reach and what it costs before you commit.</p>
+      </div>
+      <div class="step">
+        <span class="n">3</span>
+        <h3>Activate anywhere</h3>
+        <p>Send it to a feed, your website pixel, your ad platforms, or the API. Set it once and let it run on a schedule.</p>
+      </div>
+    </div>
+    <div class="act" style="margin-top:36px;">
+      <div class="actcard"><h4>Data feeds</h4><p>Recurring records to email, webhook, or S3.</p></div>
+      <div class="actcard"><h4>Website pixel</h4><p>Turn anonymous traffic into contacts.</p></div>
+      <div class="actcard"><h4>Ad platforms</h4><p>Encrypted audiences pushed on a schedule.</p></div>
+      <div class="actcard"><h4>Identity API</h4><p>Resolve &amp; enrich in real time.</p></div>
+    </div>
+  </section>
+
+  <!-- ── TRUST ── -->
+  <section class="wrap" style="padding-top:24px;">
     <div class="trustbar">
       <div class="trust">
         <div class="big"><span class="em">Millions</span> of records</div>
@@ -258,77 +317,13 @@
     </div>
   </section>
 
-  <!-- ── HOW IT WORKS ── -->
-  <section id="how" class="wrap">
-    <div class="sec-head">
-      <span class="sec-tag">How it works</span>
-      <h2>Ask. See the count. Ship it.</h2>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <span class="n">01</span>
-        <h3>Describe your audience</h3>
-        <p>Tell the chatbot who you want to reach — or upload past converters to find more like them. Plain English, no filters to learn.</p>
-      </div>
-      <div class="step">
-        <span class="n">02</span>
-        <h3>See the count, refine</h3>
-        <p>It picks the filters and shows a live record count. Narrow by geography, age, home value, phone type until it's right.</p>
-      </div>
-      <div class="step">
-        <span class="n">03</span>
-        <h3>Pick how you activate</h3>
-        <p>Take it as a feed, a website pixel, an encrypted push to your ad platforms, or the real-time API. The chat sets it up.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── ACTIVATE ── -->
-  <section id="activate" class="wrap">
-    <div class="sec-head">
-      <span class="sec-tag">Ways to activate</span>
-      <h2>One graph. However you want to use it.</h2>
-      <p>Build it once in chat, then deliver it wherever your campaigns run.</p>
-    </div>
-    <div class="tiles">
-      <div class="tile">
-        <div class="top"><h3>Data feeds</h3><span class="price">from $600/mo</span></div>
-        <p>Recurring net-new records delivered to email, a webhook, or S3 — on the schedule and cap you set.</p>
-      </div>
-      <div class="tile">
-        <div class="top"><h3>Ad-platform push</h3><span class="price">included</span></div>
-        <p>Encrypted identifiers — never raw records — pushed straight into your ad accounts on a schedule.</p>
-      </div>
-      <div class="tile">
-        <div class="top"><h3>Website pixel</h3><span class="price">from $400/mo</span></div>
-        <p>Turn anonymous traffic into known, contactable people — and track the conversions that matter.</p>
-      </div>
-      <div class="tile">
-        <div class="top"><h3>Identity API</h3><span class="price">from $0.03</span></div>
-        <p>Resolve and enrich in real time, fast enough for live call flows. Pay only for the matches you get.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── DATA ── -->
-  <section id="data" class="wrap data">
-    <span class="sec-tag">The data</span>
-    <h2 class="data-h">One graph. <span class="em">Nearly every U.S. household.</span></h2>
-    <p class="sub" style="max-width:600px;margin:18px auto 0;">A single national identity graph, keyed to real people — hundreds of attributes across demographics, property, and intent. The full field catalog opens up once you're in.</p>
-    <div class="tagcloud">
-      <span class="tag">Age &amp; income</span><span class="tag">Homeowner &amp; home value</span><span class="tag">Property attributes</span>
-      <span class="tag">In-market intent</span><span class="tag">Mobile &amp; DNC status</span><span class="tag">Lifestyle affinities</span>
-      <span class="tag">Life events</span><span class="tag">…and hundreds more</span>
-    </div>
-  </section>
-
   <!-- ── CTA BAND ── -->
   <section class="wrap">
     <div class="band">
-      <h2>Find your next customers. <span class="em">Just ask.</span></h2>
-      <p>Spin up your first audience free in under a minute.</p>
-      <a href="https://talkdatatome.online" class="btn btn-primary">Get started free</a>
-      <p class="note">No SQL · No forms · No sales call</p>
+      <h2>Your next customers are one sentence away.</h2>
+      <p>Describe who you want to reach and see your first audience free — in under a minute.</p>
+      <a href="https://talkdatatome.online" class="btn btn-primary btn-lg">Get started free</a>
+      <p class="note">No contract · No minimum · No sales call</p>
     </div>
   </section>
 
@@ -342,7 +337,7 @@
       <div class="foot-links">
         <a href="https://talkdatatome.online">Get started</a>
         <a href="https://talkdatatome.online">Sign in</a>
-        <a href="#activate">Activate</a>
+        <a href="#why">Why TDTM</a>
         <a href="https://tof.io">TOF</a>
         <a href="mailto:hello@tof.io">Contact</a>
       </div>
