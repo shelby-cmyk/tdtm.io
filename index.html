@@ -87,6 +87,22 @@
   .strip .row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 18px; }
   .pill { font-size: 13px; font-weight: 600; color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 8px 16px; }
 
+  /* ── TRUST BAR ── */
+  .trustbar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 860px; margin: 46px auto 0; }
+  .trust { text-align: center; padding: 4px 20px; }
+  .trust + .trust { border-left: 1px solid var(--border); }
+  .trust .big { font-size: clamp(20px, 2.4vw, 26px); font-weight: 800; letter-spacing: -.015em; line-height: 1.1; }
+  .trust .big .em { color: var(--accent-ink); }
+  .trust .lbl { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  @media (max-width: 700px) {
+    .trustbar { grid-template-columns: 1fr; }
+    .trust + .trust { border-left: 0; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 4px; }
+  }
+
+  /* ── DATA HEADLINE ── */
+  .data-h { font-size: clamp(30px, 5vw, 56px); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; max-width: 820px; margin: 14px auto 0; }
+  .data-h .em { color: var(--accent-ink); }
+
   /* ── SECTIONS ── */
   section { padding: 58px 0; }
   .sec-head { text-align: center; max-width: 680px; margin: 0 auto 44px; }
@@ -240,14 +256,29 @@
 
   <!-- ── HERO ── -->
   <section class="hero wrap">
-    <span class="eyebrow"><span class="dot"></span> Audience building, powered by chat</span>
+    <span class="eyebrow"><span class="dot"></span> Backed by TOF · Talk Data To Me</span>
     <h1>Find your next customers. <span class="mark">Just ask.</span></h1>
-    <p class="sub">Tell the chatbot who you want to reach. It finds the data, shows you the count and the price, then sets you up — a recurring data feed, a website pixel that turns your traffic into contacts, audiences pushed straight to your ad platforms, or a real-time identity API. <strong>No SQL, no forms, no sales call.</strong></p>
+    <p class="sub">The AI that turns a plain-English request into a ready-to-use audience — as a data feed, a website pixel, an ad-platform push, or a real-time API. <strong>No SQL. No forms. No sales call.</strong></p>
     <div class="hero-cta">
       <a href="https://talkdatatome.online" class="btn btn-primary">Get started free</a>
-      <a href="#pricing" class="btn btn-ghost">See pricing</a>
+      <a href="https://talkdatatome.online" class="btn btn-ghost">Talk to us</a>
     </div>
     <p class="hero-note">No card required for the free tier · Cancel any paid plan anytime</p>
+
+    <div class="trustbar">
+      <div class="trust">
+        <div class="big"><span class="em">Millions</span> of records</div>
+        <div class="lbl">delivered every week</div>
+      </div>
+      <div class="trust">
+        <div class="big"><span class="em">Nearly every</span> household</div>
+        <div class="lbl">U.S. identity coverage</div>
+      </div>
+      <div class="trust">
+        <div class="big">Backed by <span class="em">TOF</span></div>
+        <div class="lbl">the data company behind it</div>
+      </div>
+    </div>
   </section>
 
   <!-- ── EXAMPLE CHAT ── -->
@@ -399,8 +430,8 @@ curl -X POST https://talkdatatome.online/api/…/<span class="k">resolve</span> 
   <!-- ── DATA CATALOG ── -->
   <section id="data" class="wrap catalog">
     <span class="sec-tag">The <span class="em">data</span></span>
-    <div class="bignum"><span>1</span> graph</div>
-    <p class="sub" style="margin-top:14px;">One national identity graph, keyed to real people — hundreds of attributes across demographics, property, and intent. The full field catalog opens up once you're in.</p>
+    <h2 class="data-h">One graph. <span class="em">Nearly every U.S. household.</span></h2>
+    <p class="sub" style="margin-top:16px;">A single national identity graph, keyed to real people — hundreds of attributes across demographics, property, and intent. The full field catalog opens up once you're in.</p>
     <div class="tagcloud">
       <span class="tag">Age &amp; income</span><span class="tag">Homeowner &amp; home value</span><span class="tag">Property attributes</span>
       <span class="tag">In-market intent</span><span class="tag">Mobile &amp; DNC status</span><span class="tag">Lifestyle affinities</span>
