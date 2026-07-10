@@ -3,6 +3,7 @@
   // Deploy:  npx wrangler deploy
   "name": "tdtm-io",
   "compatibility_date": "2026-07-09",
+  "workers_dev": true,
   "assets": {
     "directory": "./public",
     "not_found_handling": "none"
