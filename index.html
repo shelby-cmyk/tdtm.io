@@ -89,9 +89,16 @@
   .player.paused .tab.active .tfill { animation-play-state: paused; }
   @keyframes fill { from { width: 0; } to { width: 100%; } }
 
+  .cglow { position: absolute; width: 360px; height: 360px; border-radius: 50%; left: 50%; top: 45%; transform: translate(-50%,-50%); pointer-events: none; z-index: 0; opacity: 0; transition: opacity .35s; background: radial-gradient(circle, rgba(200,255,0,.16), transparent 62%); mix-blend-mode: screen; }
+  .player:hover .cglow { opacity: 1; }
+  .tabs, .scenes { position: relative; z-index: 1; }
+  .fx { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 6; }
+  .particle { position: absolute; width: 7px; height: 7px; border-radius: 2px; pointer-events: none; background: currentColor; box-shadow: 0 0 8px currentColor; animation: burst var(--d,750ms) cubic-bezier(.15,.6,.3,1) forwards; }
+  @keyframes burst { to { transform: translate(var(--dx), var(--dy)) rotate(var(--r,180deg)) scale(.2); opacity: 0; } }
+
   .scenes { position: relative; height: 360px; }
-  .scene { position: absolute; inset: 0; padding: 30px 32px 30px; opacity: 0; transform: translateY(10px); transition: opacity .4s ease, transform .4s ease; display: flex; flex-direction: column; pointer-events: none; }
-  .scene.active { opacity: 1; transform: none; pointer-events: auto; }
+  .scene { position: absolute; inset: 0; padding: 30px 32px 30px; opacity: 0; transition: opacity .4s ease, transform .55s var(--spring); display: flex; flex-direction: column; pointer-events: none; will-change: transform, opacity; }
+  .scene.active { pointer-events: auto; z-index: 2; }
   .viz { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   .cap { border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px; }
   .cap h3 { font-size: clamp(19px, 2.6vw, 26px); font-weight: 800; letter-spacing: -.02em; }
@@ -110,8 +117,9 @@
   .vfilters { display: flex; flex-wrap: wrap; gap: 9px; }
   .vfilters span { font-family: var(--mono); font-size: 12.5px; color: var(--ink); background: var(--accent); border-radius: 8px; padding: 7px 13px; font-weight: 500; opacity: 0; transform: scale(.7); transition: opacity .25s, transform .45s var(--spring); box-shadow: 0 0 20px rgba(200,255,0,.35); }
   .vfilters span.in { opacity: 1; transform: none; }
-  .vbig { font-size: clamp(52px, 11vw, 108px); font-weight: 800; letter-spacing: -.05em; line-height: 1; color: var(--accent); margin-top: 22px; font-variant-numeric: tabular-nums; text-shadow: 0 0 50px rgba(200,255,0,.3); }
+  .vbig { font-size: clamp(52px, 11vw, 108px); font-weight: 800; letter-spacing: -.05em; line-height: 1; color: var(--accent); margin-top: 22px; font-variant-numeric: tabular-nums; text-shadow: 0 0 50px rgba(200,255,0,.3); transition: text-shadow .25s ease; }
   .vbig small { font-size: 15px; color: var(--muted); font-weight: 500; letter-spacing: 0; margin-left: 8px; text-shadow: none; }
+  .vbig.hot { text-shadow: 0 0 90px rgba(200,255,0,.95), 0 0 26px rgba(255,255,255,.6); }
   .vbig.pop { animation: pop .55s ease; }
   @keyframes pop { 0% { transform: scale(1); } 34% { transform: scale(1.09); text-shadow: 0 0 70px rgba(200,255,0,.7); } 100% { transform: scale(1); } }
 
@@ -164,6 +172,8 @@
       <h1>A sentence in. A shippable audience out.<br><span class="accent">Just ask.</span></h1>
 
       <div class="player" id="player" aria-hidden="true">
+        <div class="cglow" id="cglow"></div>
+        <div class="fx" id="fx"></div>
         <div class="tabs" id="tabs">
           <button class="tab" data-tab="0"><span class="tn">01</span><span class="tl">Ask</span><span class="tfill"></span></button>
           <button class="tab" data-tab="1"><span class="tn">02</span><span class="tl">See the count</span><span class="tfill"></span></button>
@@ -229,13 +239,15 @@
 
 <script>
 (function () {
-  var DUR = 5200;
+  var DUR = 5200, N = 4;
   var player = document.getElementById("player");
   var scenes = Array.prototype.slice.call(document.querySelectorAll("[data-scene]"));
   var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
   var fills = tabs.map(function (t) { return t.querySelector(".tfill"); });
   var typedEl = scenes[0].querySelector("[data-typed]");
   var countEl = scenes[1].querySelector("[data-count]");
+  var cglow = document.getElementById("cglow");
+  var fx = document.getElementById("fx");
   if (!scenes.length) return;
   player.style.setProperty("--dur", DUR + "ms");
 
@@ -243,6 +255,28 @@
   var commas = function (n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); };
   var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
   var idx = 0, runToken = 0;
+
+  /* ── particle burst ── */
+  function centerOf(el) {
+    var pr = player.getBoundingClientRect(), r = el.getBoundingClientRect();
+    return { x: r.left - pr.left + r.width / 2, y: r.top - pr.top + r.height / 2 };
+  }
+  function burst(cx, cy, n, power, colors) {
+    if (reduce) return;
+    for (var i = 0; i < n; i++) {
+      var p = document.createElement("i"); p.className = "particle";
+      var ang = Math.random() * Math.PI * 2, dist = power * (0.35 + Math.random() * 0.65);
+      p.style.left = cx + "px"; p.style.top = cy + "px";
+      p.style.color = colors[i % colors.length];
+      p.style.width = p.style.height = (5 + Math.random() * 5 | 0) + "px";
+      p.style.setProperty("--dx", (Math.cos(ang) * dist).toFixed(1) + "px");
+      p.style.setProperty("--dy", (Math.sin(ang) * dist).toFixed(1) + "px");
+      p.style.setProperty("--r", (Math.random() * 360 | 0) + "deg");
+      p.style.setProperty("--d", (650 + Math.random() * 550 | 0) + "ms");
+      fx.appendChild(p);
+      (function (el) { setTimeout(function () { el.remove(); }, 1300); })(p);
+    }
+  }
 
   /* ── scene animations ── */
   async function run1(tok) {
@@ -255,21 +289,26 @@
   }
   async function run2(tok) {
     scenes[1].querySelectorAll(".vfilters span").forEach(function (s) { s.classList.remove("in"); });
-    var big = scenes[1].querySelector(".vbig"); big.classList.remove("pop"); countEl.textContent = "0";
+    var big = scenes[1].querySelector(".vbig"); big.classList.remove("pop", "hot"); countEl.textContent = "0";
     var f = scenes[1].querySelectorAll(".vfilters span");
     for (var i = 0; i < f.length && tok === runToken; i++) { f[i].classList.add("in"); await sleep(300); }
     if (tok !== runToken) return;
-    await countUp(128000, 1150, tok);
+    await countUp(big, 128000, 1200, tok);
     if (tok === runToken) { big.classList.add("pop"); }
   }
-  function countUp(target, ms, tok) {
+  function countUp(big, target, ms, tok) {
     return new Promise(function (res) {
-      var start = null;
+      var start = null, crossed = false;
       (function frame(t) {
         if (tok !== runToken) return res();
         if (start === null) start = t;
-        var p = Math.min(1, (t - start) / ms), e = 1 - Math.pow(1 - p, 3);
-        countEl.textContent = commas(target * e);
+        var p = Math.min(1, (t - start) / ms), e = 1 - Math.pow(1 - p, 3), val = target * e;
+        countEl.textContent = commas(val);
+        if (!crossed && val >= 100000) {  // signature moment: cross 100k
+          crossed = true;
+          big.classList.add("hot"); setTimeout(function () { big.classList.remove("hot"); }, 380);
+          var c = centerOf(big); burst(c.x, c.y, 16, 130, ["#c8ff00", "#ffffff"]);
+        }
         p < 1 ? requestAnimationFrame(frame) : res();
       })(performance.now());
     });
@@ -283,35 +322,62 @@
     var d = scenes[3].querySelectorAll("[data-d]");
     d.forEach(function (x) { x.classList.remove("on"); });
     for (var i = 0; i < d.length && tok === runToken; i++) { await sleep(320); d[i].classList.add("on"); }
+    if (tok !== runToken) return;
+    var row = scenes[3].querySelector(".vdests"), c = centerOf(row);  // confetti when all lit
+    burst(c.x, c.y, 46, 260, ["#c8ff00", "#dfff5c", "#ffffff"]);
   }
   var runners = [run1, run2, run3, run4];
 
-  /* ── chapter control ── */
+  /* ── chapter control (directional slide) ── */
+  function setScene(i, dir) {
+    scenes.forEach(function (s, k) {
+      if (k === i) {
+        s.style.transition = "none";
+        s.style.opacity = "0";
+        s.style.transform = "translateX(" + (dir * 46) + "px) scale(.97)";
+        s.classList.add("active");
+        void s.offsetWidth;
+        s.style.transition = "";
+        s.style.opacity = "1"; s.style.transform = "none";
+      } else {
+        if (s.classList.contains("active")) { s.style.opacity = "0"; s.style.transform = "translateX(" + (-dir * 40) + "px) scale(.97)"; }
+        else { s.style.opacity = "0"; }
+        s.classList.remove("active");
+      }
+    });
+  }
   function goTo(i) {
-    idx = i; runToken++;
-    var tok = runToken;
-    scenes.forEach(function (s, k) { s.classList.toggle("active", k === i); });
+    var dir = i === idx ? 1 : (i > idx ? 1 : -1);
+    if (idx === N - 1 && i === 0) dir = 1;   // forward wrap
+    if (idx === 0 && i === N - 1) dir = -1;
+    idx = i; runToken++; var tok = runToken;
+    setScene(i, dir);
     tabs.forEach(function (t, k) { t.classList.toggle("active", k === i); });
-    // restart the active tab's fill animation
     var f = fills[i]; f.style.animation = "none"; void f.offsetWidth; f.style.animation = "";
     runners[i](tok);
   }
 
   if (reduce) {
-    scenes.forEach(function (s, k) { s.classList.toggle("active", k === 3); });
+    scenes.forEach(function (s, k) { s.style.opacity = k === 3 ? "1" : "0"; s.style.transform = "none"; s.classList.toggle("active", k === 3); });
     tabs.forEach(function (t, k) { t.classList.toggle("active", k === 3); });
     scenes[3].querySelectorAll("[data-d]").forEach(function (d) { d.classList.add("on"); });
     countEl.textContent = commas(128000);
     return;
   }
 
-  // advance when the active tab's fill animation completes
+  // advance when the active tab's fill completes
   fills.forEach(function (f, i) {
     f.addEventListener("animationend", function () {
-      if (i === idx && !player.classList.contains("paused")) goTo((idx + 1) % scenes.length);
+      if (i === idx && !player.classList.contains("paused")) goTo((idx + 1) % N);
     });
   });
 
+  // cursor-reactive glow
+  player.addEventListener("mousemove", function (e) {
+    var r = player.getBoundingClientRect();
+    cglow.style.left = (e.clientX - r.left) + "px";
+    cglow.style.top = (e.clientY - r.top) + "px";
+  });
   // hover pauses; leaving resumes
   player.addEventListener("mouseenter", function () { player.classList.add("paused"); });
   player.addEventListener("mouseleave", function () { player.classList.remove("paused"); });
