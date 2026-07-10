@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="TDTM — Talk Data To Me. A 30-second walkthrough: build an audience by chat, see the count live, resolve your website traffic, and activate everywhere — feeds, pixel, ad platforms, API. Just ask. Backed by TOF.">
+<meta name="description" content="TDTM — Talk Data To Me. Build an audience by chat, see the count live, resolve your website traffic, and activate everywhere — feeds, pixel, ad platforms, API. Just ask. Backed by TOF.">
 <meta property="og:title" content="TDTM — Talk Data To Me · Find your next customers. Just ask.">
-<meta property="og:description" content="Watch the whole platform in 30 seconds: ask → see the count → resolve traffic → activate everywhere.">
+<meta property="og:description" content="Build an audience by chat, see the count live, resolve traffic, activate everywhere. Just ask.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://tdtm.io">
 <meta property="og:image" content="https://tdtm.io/tdtm-og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="TDTM — Talk Data To Me · Find your next customers. Just ask.">
-<meta name="twitter:description" content="Watch the whole platform in 30 seconds: ask → see the count → resolve traffic → activate everywhere.">
+<meta name="twitter:description" content="Build an audience by chat, see the count live, resolve traffic, activate everywhere. Just ask.">
 <meta name="twitter:image" content="https://tdtm.io/tdtm-og.png">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://tdtm.io">
@@ -25,11 +25,12 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b0b0d; --surface: #131318; --surface-2: #191920; --fg: #f4f5f8;
+    --bg: #0a0a0c; --surface: #131318; --surface-2: #191920; --fg: #f4f5f8;
     --muted: #9b9fa9; --faint: #6a6d77; --border: #23242c; --border-2: #2d2f38;
     --accent: #c8ff00; --ink: #0c0c0e;
     --f: 'DM Sans', Inter, system-ui, -apple-system, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --spring: cubic-bezier(.2,.9,.25,1.4);
     --maxw: 1080px;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,7 +40,14 @@
   ::selection { background: var(--accent); color: var(--ink); }
   .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; width: 100%; }
 
-  body::before { content: ''; position: fixed; top: -25vh; left: 50%; transform: translateX(-50%); width: 90vw; height: 75vh; pointer-events: none; z-index: 0; background: radial-gradient(ellipse 50% 50% at center, rgba(200,255,0,.08), transparent 68%); }
+  /* animated backdrop */
+  body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+    background-size: 46px 46px; -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000, transparent 80%); mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000, transparent 80%); animation: drift 22s linear infinite; }
+  body::after { content: ''; position: fixed; top: -30vh; left: 50%; margin-left: -45vw; width: 90vw; height: 85vh; z-index: 0; pointer-events: none;
+    background: radial-gradient(ellipse 50% 50% at center, rgba(200,255,0,.12), transparent 66%); animation: pulse 6s ease-in-out infinite; }
+  @keyframes drift { to { background-position: 46px 46px; } }
+  @keyframes pulse { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
   header, main, footer { position: relative; z-index: 1; }
 
   /* NAV */
@@ -51,74 +59,83 @@
   .nav-cta a.link:hover { color: var(--fg); }
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; font-family: var(--f); font-size: 15px; font-weight: 700; border-radius: 10px; padding: 13px 24px; cursor: pointer; transition: transform .12s, box-shadow .2s, border-color .15s, color .15s, background .15s; white-space: nowrap; border: 1px solid transparent; }
   .btn-sm { font-size: 14px; padding: 9px 16px; }
-  .btn-lg { font-size: 16px; padding: 15px 30px; }
-  .btn-primary { background: var(--accent); color: var(--ink); border-color: var(--accent); }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(200,255,0,.3); }
+  .btn-lg { font-size: 16px; padding: 16px 32px; }
+  .btn-primary { background: var(--accent); color: var(--ink); border-color: var(--accent); box-shadow: 0 0 0 0 rgba(200,255,0,.5); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,255,0,.4); }
   .btn-ghost { background: transparent; color: var(--fg); border-color: var(--border-2); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
   /* STAGE */
   main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 0 52px; }
-  .stage { text-align: center; max-width: 900px; margin: 0 auto; width: 100%; }
-  .kicker { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: .04em; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 10px; }
-  .kicker::before { content: ''; width: 26px; height: 1px; background: var(--accent); }
-  h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.04; letter-spacing: -.035em; font-weight: 800; }
-  h1 .accent { color: var(--accent); }
+  .stage { text-align: center; max-width: 940px; margin: 0 auto; width: 100%; }
+  .kicker { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: .12em; margin-bottom: 18px; display: inline-flex; align-items: center; gap: 10px; }
+  .kicker::before, .kicker::after { content: ''; width: 22px; height: 1px; background: var(--accent); opacity: .5; }
+  h1 { font-size: clamp(32px, 5.2vw, 60px); line-height: .98; letter-spacing: -.04em; font-weight: 800; }
+  h1 .accent { color: var(--accent); text-shadow: 0 0 40px rgba(200,255,0,.45); }
 
   /* PLAYER */
-  .player { margin: 30px auto 0; border: 1px solid var(--border-2); border-radius: 18px; background: var(--surface); box-shadow: 0 30px 80px rgba(0,0,0,.45); overflow: hidden; text-align: left; }
-  .ptl { display: flex; gap: 6px; padding: 12px 16px 0; }
-  .seg { flex: 1; height: 3px; border-radius: 2px; background: var(--border-2); overflow: hidden; cursor: pointer; }
-  .seg .fill { display: block; height: 100%; width: 0; background: var(--accent); }
-  .pbar { display: flex; align-items: center; gap: 8px; padding: 10px 16px 0; font-family: var(--mono); font-size: 11.5px; color: var(--faint); letter-spacing: .05em; }
-  .pbar .play { margin-left: auto; display: inline-flex; align-items: center; gap: 7px; color: var(--muted); }
-  .pbar .play i { width: 0; height: 0; border-left: 7px solid var(--accent); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .player { margin: 30px auto 0; border: 1px solid var(--border-2); border-radius: 18px; background: linear-gradient(180deg, #16161c, #101014); box-shadow: 0 40px 100px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.03); overflow: hidden; text-align: left; }
 
-  .scenes { position: relative; height: 340px; }
-  .scene { position: absolute; inset: 0; padding: 26px 30px 28px; opacity: 0; transition: opacity .45s ease; display: flex; flex-direction: column; pointer-events: none; }
-  .scene.active { opacity: 1; pointer-events: auto; }
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+  .tab { position: relative; background: transparent; border: 0; border-right: 1px solid var(--border); padding: 15px 18px 16px; text-align: left; cursor: pointer; transition: background .2s; overflow: hidden; }
+  .tab:last-child { border-right: 0; }
+  .tab:hover { background: rgba(200,255,0,.04); }
+  .tab .tn { font-family: var(--mono); font-size: 11px; color: var(--faint); display: block; transition: color .2s; }
+  .tab .tl { font-size: 15px; font-weight: 700; letter-spacing: -.01em; margin-top: 3px; display: block; color: var(--muted); transition: color .2s; }
+  .tab.active .tn { color: var(--accent); }
+  .tab.active .tl { color: var(--fg); }
+  .tab .tfill { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+  .tab.active .tfill { animation: fill var(--dur, 5200ms) linear forwards; }
+  .player.paused .tab.active .tfill { animation-play-state: paused; }
+  @keyframes fill { from { width: 0; } to { width: 100%; } }
+
+  .scenes { position: relative; height: 360px; }
+  .scene { position: absolute; inset: 0; padding: 30px 32px 30px; opacity: 0; transform: translateY(10px); transition: opacity .4s ease, transform .4s ease; display: flex; flex-direction: column; pointer-events: none; }
+  .scene.active { opacity: 1; transform: none; pointer-events: auto; }
   .viz { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   .cap { border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px; }
-  .cap .k { font-family: var(--mono); font-size: 11.5px; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; }
-  .cap h3 { font-size: clamp(18px, 2.4vw, 24px); font-weight: 800; letter-spacing: -.02em; margin-top: 6px; }
-  .cap p { color: var(--muted); font-size: 14.5px; margin-top: 4px; }
+  .cap h3 { font-size: clamp(19px, 2.6vw, 26px); font-weight: 800; letter-spacing: -.02em; }
+  .cap p { color: var(--muted); font-size: 14.5px; margin-top: 4px; max-width: 640px; }
 
   /* scene 1 — ask */
-  .pline { font-family: var(--mono); font-size: clamp(14px, 1.8vw, 17px); color: var(--fg); }
+  .pline { font-family: var(--mono); font-size: clamp(15px, 2vw, 20px); color: var(--fg); }
   .pline .c { color: var(--accent); font-weight: 700; }
-  .pline .cur { display: inline-block; width: 8px; height: 16px; background: var(--accent); margin-left: 3px; vertical-align: -2px; animation: blink 1.05s steps(2) infinite; }
+  .pline .cur { display: inline-block; width: 9px; height: 18px; background: var(--accent); margin-left: 4px; vertical-align: -3px; box-shadow: 0 0 10px var(--accent); animation: blink 1.05s steps(2) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
-  .vchips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-  .vchips span { font-family: var(--mono); font-size: 12.5px; color: var(--muted); border: 1px solid var(--border-2); border-radius: 999px; padding: 6px 13px; opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
-  .vchips span.in { opacity: 1; transform: none; }
+  .vchips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px; }
+  .vchips span { font-family: var(--mono); font-size: 12.5px; color: var(--muted); border: 1px solid var(--border-2); border-radius: 999px; padding: 7px 14px; opacity: 0; transform: translateY(12px) scale(.94); transition: opacity .3s, transform .45s var(--spring); }
+  .vchips span.in { opacity: 1; transform: none; color: var(--fg); }
 
   /* scene 2 — count */
-  .vfilters { display: flex; flex-wrap: wrap; gap: 8px; }
-  .vfilters span { font-family: var(--mono); font-size: 12.5px; color: var(--ink); background: var(--accent); border-radius: 8px; padding: 6px 12px; opacity: 0; transform: scale(.9); transition: opacity .25s, transform .25s; }
+  .vfilters { display: flex; flex-wrap: wrap; gap: 9px; }
+  .vfilters span { font-family: var(--mono); font-size: 12.5px; color: var(--ink); background: var(--accent); border-radius: 8px; padding: 7px 13px; font-weight: 500; opacity: 0; transform: scale(.7); transition: opacity .25s, transform .45s var(--spring); box-shadow: 0 0 20px rgba(200,255,0,.35); }
   .vfilters span.in { opacity: 1; transform: none; }
-  .vbig { font-size: clamp(46px, 9vw, 84px); font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--accent); margin-top: 20px; font-variant-numeric: tabular-nums; }
-  .vbig small { font-size: 15px; color: var(--muted); font-weight: 500; letter-spacing: 0; margin-left: 6px; }
+  .vbig { font-size: clamp(52px, 11vw, 108px); font-weight: 800; letter-spacing: -.05em; line-height: 1; color: var(--accent); margin-top: 22px; font-variant-numeric: tabular-nums; text-shadow: 0 0 50px rgba(200,255,0,.3); }
+  .vbig small { font-size: 15px; color: var(--muted); font-weight: 500; letter-spacing: 0; margin-left: 8px; text-shadow: none; }
+  .vbig.pop { animation: pop .55s ease; }
+  @keyframes pop { 0% { transform: scale(1); } 34% { transform: scale(1.09); text-shadow: 0 0 70px rgba(200,255,0,.7); } 100% { transform: scale(1); } }
 
   /* scene 3 — resolve */
-  .vrow { position: relative; font-family: var(--mono); font-size: clamp(13px, 1.6vw, 15px); padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .vrow { position: relative; font-family: var(--mono); font-size: clamp(14px, 1.7vw, 16px); padding: 15px 0; border-bottom: 1px solid var(--border); }
   .vrow:last-child { border-bottom: 0; }
-  .vrow .anon { color: var(--faint); letter-spacing: 1px; transition: opacity .4s; }
-  .vrow .named { position: absolute; left: 0; top: 12px; color: var(--fg); opacity: 0; transition: opacity .4s; }
+  .vrow .anon { color: var(--faint); letter-spacing: 1px; transition: opacity .35s; }
+  .vrow .named { position: absolute; left: 0; top: 15px; opacity: 0; transform: translateX(-6px); transition: opacity .4s, transform .4s var(--spring); }
   .vrow .named b { color: var(--accent); font-weight: 500; }
+  .vrow .named .ok { color: var(--accent); }
   .vrow.done .anon { opacity: 0; }
-  .vrow.done .named { opacity: 1; }
+  .vrow.done .named { opacity: 1; transform: none; }
 
   /* scene 4 — activate */
-  .vhub { font-family: var(--mono); font-size: 13px; color: var(--muted); }
-  .vhub b { color: var(--fg); }
-  .vdests { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px; }
-  .vdests span { font-family: var(--mono); font-size: 12.5px; color: var(--faint); border: 1px solid var(--border-2); border-radius: 10px; padding: 16px 12px; text-align: center; transition: color .3s, border-color .3s, background .3s, transform .3s; }
-  .vdests span.on { color: var(--ink); background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
-  @media (max-width: 560px) { .vdests { grid-template-columns: 1fr 1fr; } .scenes { height: 380px; } }
+  .vhub { font-family: var(--mono); font-size: 14px; color: var(--muted); }
+  .vhub b { color: var(--fg); } .vhub .c { color: var(--accent); }
+  .vdests { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
+  .vdests span { font-family: var(--mono); font-size: 13px; color: var(--faint); border: 1px solid var(--border-2); border-radius: 12px; padding: 20px 12px; text-align: center; opacity: 0; transform: translateY(14px) scale(.92); transition: opacity .3s, transform .5s var(--spring), color .3s, border-color .3s, background .3s, box-shadow .3s; }
+  .vdests span.on { opacity: 1; transform: none; color: var(--ink); background: var(--accent); border-color: var(--accent); box-shadow: 0 0 30px rgba(200,255,0,.5); }
+  @media (max-width: 560px) { .vdests { grid-template-columns: 1fr 1fr; } .scenes { height: 400px; } .tab .tl { font-size: 13px; } }
 
   /* CTA */
-  .cta { margin-top: 28px; display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; }
-  .note { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 15px; }
+  .cta { margin-top: 30px; display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; }
+  .note { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-top: 15px; letter-spacing: .03em; }
 
   /* FOOTER */
   footer { border-top: 1px solid var(--border); padding: 22px 0; }
@@ -144,50 +161,45 @@
   <div class="wrap">
     <div class="stage">
       <div class="kicker">TALK · DATA · TO · ME</div>
-      <h1>The whole platform, in 30 seconds. <span class="accent">Just ask.</span></h1>
+      <h1>A sentence in. A shippable audience out.<br><span class="accent">Just ask.</span></h1>
 
-      <div class="player" aria-hidden="true">
-        <div class="ptl" id="ptl">
-          <div class="seg"><span class="fill"></span></div>
-          <div class="seg"><span class="fill"></span></div>
-          <div class="seg"><span class="fill"></span></div>
-          <div class="seg"><span class="fill"></span></div>
+      <div class="player" id="player" aria-hidden="true">
+        <div class="tabs" id="tabs">
+          <button class="tab" data-tab="0"><span class="tn">01</span><span class="tl">Ask</span><span class="tfill"></span></button>
+          <button class="tab" data-tab="1"><span class="tn">02</span><span class="tl">See the count</span><span class="tfill"></span></button>
+          <button class="tab" data-tab="2"><span class="tn">03</span><span class="tl">Resolve</span><span class="tfill"></span></button>
+          <button class="tab" data-tab="3"><span class="tn">04</span><span class="tl">Activate</span><span class="tfill"></span></button>
         </div>
-        <div class="pbar"><span id="chapter">01 · Ask</span><span class="play"><i></i> auto-playing</span></div>
 
         <div class="scenes" id="scenes">
-          <!-- 1: ASK -->
           <div class="scene" data-scene>
             <div class="viz">
-              <div class="pline"><span class="c">&gt;</span> <span class="typed" data-typed></span><span class="cur"></span></div>
+              <div class="pline"><span class="c">&gt;</span> <span data-typed></span><span class="cur"></span></div>
               <div class="vchips"><span>Solar</span><span>Medicare</span><span>HVAC</span><span>Homeowners 55+</span><span>Lookalikes</span></div>
             </div>
-            <div class="cap"><span class="k">01 · Ask</span><h3>Build any audience by chat</h3><p>Describe who you want in plain English — or upload converters to clone them. No SQL, no filter menus.</p></div>
+            <div class="cap"><h3>Build any audience by chat</h3><p>Describe who you want in plain English — or upload converters to clone them. No SQL, no filter menus.</p></div>
           </div>
-          <!-- 2: COUNT -->
           <div class="scene" data-scene>
             <div class="viz">
               <div class="vfilters"><span>TX · CA · FL</span><span>age 55+</span><span>$400k+ homes</span><span>mobile only</span></div>
               <div class="vbig">≈ <span data-count>0</span><small>deliverable records</small></div>
             </div>
-            <div class="cap"><span class="k">02 · See the count</span><h3>Live counts as you refine</h3><p>Every filter updates the addressable universe instantly — you see the size and the price before you commit.</p></div>
+            <div class="cap"><h3>Live counts as you refine</h3><p>Every filter updates the addressable universe instantly — you see the size and the price before you commit.</p></div>
           </div>
-          <!-- 3: RESOLVE -->
           <div class="scene" data-scene>
             <div class="viz">
-              <div class="vrow"><span class="anon">visitor ▮▮▮▮ · ▮▮ · ▮▮▮▮▮▮</span><span class="named">Jane D. · 57 · homeowner · mobile ✓</span></div>
-              <div class="vrow"><span class="anon">visitor ▮▮▮▮▮ · ▮▮ · ▮▮▮▮</span><span class="named">Marcus R. · 61 · $480k home · mobile ✓</span></div>
-              <div class="vrow"><span class="anon">visitor ▮▮▮ · ▮▮ · ▮▮▮▮▮▮▮</span><span class="named">Lena P. · 55 · in-market ✓</span></div>
+              <div class="vrow"><span class="anon">visitor ▮▮▮▮ · ▮▮ · ▮▮▮▮▮▮</span><span class="named">Jane D. · 57 · homeowner · mobile <span class="ok">✓</span></span></div>
+              <div class="vrow"><span class="anon">visitor ▮▮▮▮▮ · ▮▮ · ▮▮▮▮</span><span class="named">Marcus R. · 61 · $480k home · mobile <span class="ok">✓</span></span></div>
+              <div class="vrow"><span class="anon">visitor ▮▮▮ · ▮▮ · ▮▮▮▮▮▮▮</span><span class="named">Lena P. · 55 · in-market <span class="ok">✓</span></span></div>
             </div>
-            <div class="cap"><span class="k">03 · Resolve</span><h3>Turn anonymous traffic into contacts</h3><p>One line of pixel resolves the people already on your site into real, contactable identities.</p></div>
+            <div class="cap"><h3>Turn anonymous traffic into contacts</h3><p>One line of pixel resolves the people already on your site into real, contactable identities.</p></div>
           </div>
-          <!-- 4: ACTIVATE -->
           <div class="scene" data-scene>
             <div class="viz">
-              <div class="vhub"><span class="c" style="color:var(--accent)">&gt;</span> your audience is ready — <b>shipping to</b></div>
+              <div class="vhub"><span class="c">&gt;</span> your audience is ready — <b>shipping to</b></div>
               <div class="vdests"><span data-d>Data feed</span><span data-d>Website pixel</span><span data-d>Ad platforms</span><span data-d>Identity API</span></div>
             </div>
-            <div class="cap"><span class="k">04 · Activate</span><h3>Ship it wherever you run</h3><p>A recurring feed, your website pixel, encrypted pushes to your ad platforms, or the real-time API. Set once, runs on a schedule.</p></div>
+            <div class="cap"><h3>Ship it wherever you run</h3><p>A recurring feed, your website pixel, encrypted pushes to your ad platforms, or the real-time API. Set once, runs on a schedule.</p></div>
           </div>
         </div>
       </div>
@@ -196,7 +208,7 @@
         <a href="https://talkdatatome.online" class="btn btn-primary btn-lg">Get started free</a>
         <a href="mailto:hello@tof.io?subject=TDTM%20%E2%80%94%20a%20few%20questions" class="btn btn-ghost btn-lg">Talk to us</a>
       </div>
-      <div class="note">free to start · no SQL · no sales call</div>
+      <div class="note">free to start · no SQL · no sales call · click a chapter to explore</div>
     </div>
   </div>
 </main>
@@ -217,48 +229,44 @@
 
 <script>
 (function () {
-  var SCENE_MS = 5000;
-  var chapters = ["01 · Ask", "02 · See the count", "03 · Resolve", "04 · Activate"];
-  var scenesWrap = document.getElementById("scenes");
-  var scenes = Array.prototype.slice.call(scenesWrap.querySelectorAll("[data-scene]"));
-  var segs = Array.prototype.slice.call(document.querySelectorAll(".seg"));
-  var fills = segs.map(function (s) { return s.querySelector(".fill"); });
-  var chapterEl = document.getElementById("chapter");
+  var DUR = 5200;
+  var player = document.getElementById("player");
+  var scenes = Array.prototype.slice.call(document.querySelectorAll("[data-scene]"));
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  var fills = tabs.map(function (t) { return t.querySelector(".tfill"); });
   var typedEl = scenes[0].querySelector("[data-typed]");
   var countEl = scenes[1].querySelector("[data-count]");
   if (!scenes.length) return;
+  player.style.setProperty("--dur", DUR + "ms");
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var commas = function (n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); };
   var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
-  var raf = function () { return new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); }); };
+  var idx = 0, runToken = 0;
 
-  function show(i) {
-    scenes.forEach(function (s, k) { s.classList.toggle("active", k === i); });
-    chapterEl.textContent = chapters[i];
-  }
-  function resetFills() { fills.forEach(function (f) { f.style.transition = "none"; f.style.width = "0"; }); }
-  async function fillSeg(i) {
-    fills[i].style.transition = "none"; fills[i].style.width = "0";
-    await raf();
-    fills[i].style.transition = "width " + SCENE_MS + "ms linear";
-    fills[i].style.width = "100%";
-  }
-
-  function resetScene1() { typedEl.textContent = ""; scenes[0].querySelectorAll(".vchips span").forEach(function (c) { c.classList.remove("in"); }); }
-  async function runScene1() {
-    resetScene1();
+  /* ── scene animations ── */
+  async function run1(tok) {
+    typedEl.textContent = "";
+    scenes[0].querySelectorAll(".vchips span").forEach(function (c) { c.classList.remove("in"); });
     var q = "homeowners in Dallas, 55+, $400k+ homes, mobile only";
-    for (var k = 0; k < q.length; k++) { typedEl.textContent += q[k]; await sleep(26); }
+    for (var k = 0; k < q.length && tok === runToken; k++) { typedEl.textContent += q[k]; await sleep(24); }
     var chips = scenes[0].querySelectorAll(".vchips span");
-    for (var c = 0; c < chips.length; c++) { chips[c].classList.add("in"); await sleep(90); }
+    for (var c = 0; c < chips.length && tok === runToken; c++) { chips[c].classList.add("in"); await sleep(85); }
   }
-
-  function resetScene2() { scenes[1].querySelectorAll(".vfilters span").forEach(function (s) { s.classList.remove("in"); }); countEl.textContent = "0"; }
-  function countUp(target, ms) {
+  async function run2(tok) {
+    scenes[1].querySelectorAll(".vfilters span").forEach(function (s) { s.classList.remove("in"); });
+    var big = scenes[1].querySelector(".vbig"); big.classList.remove("pop"); countEl.textContent = "0";
+    var f = scenes[1].querySelectorAll(".vfilters span");
+    for (var i = 0; i < f.length && tok === runToken; i++) { f[i].classList.add("in"); await sleep(300); }
+    if (tok !== runToken) return;
+    await countUp(128000, 1150, tok);
+    if (tok === runToken) { big.classList.add("pop"); }
+  }
+  function countUp(target, ms, tok) {
     return new Promise(function (res) {
       var start = null;
       (function frame(t) {
+        if (tok !== runToken) return res();
         if (start === null) start = t;
         var p = Math.min(1, (t - start) / ms), e = 1 - Math.pow(1 - p, 3);
         countEl.textContent = commas(target * e);
@@ -266,58 +274,51 @@
       })(performance.now());
     });
   }
-  async function runScene2() {
-    resetScene2();
-    var f = scenes[1].querySelectorAll(".vfilters span");
-    for (var i = 0; i < f.length; i++) { f[i].classList.add("in"); await sleep(320); }
-    await countUp(128000, 1200);
-  }
-
-  function resetScene3() { scenes[2].querySelectorAll(".vrow").forEach(function (r) { r.classList.remove("done"); }); }
-  async function runScene3() {
-    resetScene3();
+  async function run3(tok) {
     var rows = scenes[2].querySelectorAll(".vrow");
-    for (var i = 0; i < rows.length; i++) { await sleep(520); rows[i].classList.add("done"); }
+    rows.forEach(function (r) { r.classList.remove("done"); });
+    for (var i = 0; i < rows.length && tok === runToken; i++) { await sleep(480); rows[i].classList.add("done"); }
   }
-
-  function resetScene4() { scenes[3].querySelectorAll("[data-d]").forEach(function (d) { d.classList.remove("on"); }); }
-  async function runScene4() {
-    resetScene4();
+  async function run4(tok) {
     var d = scenes[3].querySelectorAll("[data-d]");
-    for (var i = 0; i < d.length; i++) { await sleep(360); d[i].classList.add("on"); }
+    d.forEach(function (x) { x.classList.remove("on"); });
+    for (var i = 0; i < d.length && tok === runToken; i++) { await sleep(320); d[i].classList.add("on"); }
   }
+  var runners = [run1, run2, run3, run4];
 
-  var runners = [runScene1, runScene2, runScene3, runScene4];
+  /* ── chapter control ── */
+  function goTo(i) {
+    idx = i; runToken++;
+    var tok = runToken;
+    scenes.forEach(function (s, k) { s.classList.toggle("active", k === i); });
+    tabs.forEach(function (t, k) { t.classList.toggle("active", k === i); });
+    // restart the active tab's fill animation
+    var f = fills[i]; f.style.animation = "none"; void f.offsetWidth; f.style.animation = "";
+    runners[i](tok);
+  }
 
   if (reduce) {
-    // static: show activate scene fully lit
-    show(3); resetScene4(); scenes[3].querySelectorAll("[data-d]").forEach(function (d) { d.classList.add("on"); });
-    fills.forEach(function (f) { f.style.width = "100%"; });
+    scenes.forEach(function (s, k) { s.classList.toggle("active", k === 3); });
+    tabs.forEach(function (t, k) { t.classList.toggle("active", k === 3); });
+    scenes[3].querySelectorAll("[data-d]").forEach(function (d) { d.classList.add("on"); });
+    countEl.textContent = commas(128000);
     return;
   }
 
-  // click a segment to jump
-  segs.forEach(function (s, i) { s.addEventListener("click", function () { jump(i); }); });
-  var token = 0;
-  function jump(i) { token++; idx = i; play(); }
+  // advance when the active tab's fill animation completes
+  fills.forEach(function (f, i) {
+    f.addEventListener("animationend", function () {
+      if (i === idx && !player.classList.contains("paused")) goTo((idx + 1) % scenes.length);
+    });
+  });
 
-  var idx = 0;
-  async function play() {
-    var my = ++token;
-    while (my === token) {
-      show(idx);
-      resetFills();
-      // mark previous segments filled
-      for (var k = 0; k < idx; k++) { fills[k].style.transition = "none"; fills[k].style.width = "100%"; }
-      fillSeg(idx);
-      runners[idx]();
-      await sleep(SCENE_MS);
-      if (my !== token) return;
-      idx = (idx + 1) % scenes.length;
-      if (idx === 0) resetFills();
-    }
-  }
-  play();
+  // hover pauses; leaving resumes
+  player.addEventListener("mouseenter", function () { player.classList.add("paused"); });
+  player.addEventListener("mouseleave", function () { player.classList.remove("paused"); });
+  // click a chapter to drive it
+  tabs.forEach(function (t, i) { t.addEventListener("click", function () { goTo(i); }); });
+
+  goTo(0);
 })();
 </script>
 
