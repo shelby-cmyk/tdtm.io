@@ -144,7 +144,7 @@
     <div class="stage">
       <div class="kicker">TALK · DATA · TO · ME</div>
       <h1>Find your next customers.<br><span class="accent">Just ask.</span></h1>
-      <p class="sub">Describe who you want to reach. We'll find them — then send you straight in to activate.</p>
+      <p class="sub">Describe who you want to reach and see your audience in seconds. Like what you see? Start free and put it to work.</p>
 
       <form class="prompt" id="promptForm" autocomplete="off">
         <span class="pc">&gt;</span>
@@ -187,7 +187,7 @@
 
 <script>
 (function () {
-  var APP = "https://talkdatatome.online/chat";
+  var APP = "https://talkdatatome.online";
   var form = document.getElementById("promptForm");
   var input = document.getElementById("q");
   var chips = document.getElementById("chips");
@@ -261,12 +261,12 @@
         '<div class="rn">≈ ' + commas(n) + ' <span>deliverable records</span></div>' +
         '<div class="rf">' + facets(q) + ' · ready to ship</div>' +
         '<div class="ract">' +
-          '<a class="btn btn-primary" href="' + href + '">Get this audience →</a>' +
+          '<a class="btn btn-primary" href="' + href + '">Start free to run this →</a>' +
           '<button type="button" class="again" id="again">↺ Try another</button>' +
         '</div>' +
       '</div>';
     document.getElementById("again").addEventListener("click", reset);
-    under.querySelector(".trust").textContent = "estimated · exact count and price appear when you sign in";
+    under.querySelector(".trust").textContent = "estimate · start free to run it for real and see your exact count";
   }
 
   function reset() {
